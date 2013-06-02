@@ -1,0 +1,24 @@
+{
+    "version": "0.1.0",
+    "name": "Capstone Firefox Message App",
+    "launch_path": "/index.html",
+    "description": "Firefox Instant Messaging App created for 2013 Portland State Capstone Project",
+    "icons": {
+        "16": "/firefox-im/images/logo16.png",
+        "32": "/firefox-im/images/logo32.png",
+        "48": "/firefox-im/images/logo48.png",
+        "64": "/firefox-im/images/logo64.png",
+        "128": "/firefox-im/images/logo128.png"
+    },
+    "developer": {
+        "name": "Portland State 2013 Capstone Team A",
+        "url": "http://psucapstonea.github.io"
+    },
+    "installs_allowed_from": ["*"],
+    "default_locale": "en",
+    "permissions": {
+        "desktop-notification": {
+            "description" : "To show notifications"
+        }
+    }
+}
