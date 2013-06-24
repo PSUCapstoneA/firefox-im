@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html land = "en">
+
+<head>
+<meta charset = "utf-8">
+<title> Backbone Firebase Test</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+<script src="http://cdn.firebase.com/v0/firebase.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+<script src="backbone-firebase.js"></script>
+<script src="FirebaseBackbone.js"></script>
+
+</head>
+
+     <body>
+     <div id = "messageapp">
+	<header>
+		<h1> Messages </h1>
+		<input id = "senderName" type = "text" placeholder = "Type name:">
+		<input id = "messageText" type = "text" placeholder = "Type Message:">
+		<input type = "button" onclick = "FirefoxIM.setMessage()" value = "Submit">
+	</header>
+
+	<div id = "mainMessageArea">
+
+		<ul id = "message-list"></ul>
+	</div>
+<!-- Templates -->
+
+<script type= "text/template" id="message-template">
+
+<div class = "view">
+	<label><%- senderName %></label>
+	<label><%- messageText %></label>
+</div>
+</script>
+
+	</body>
+</html>
