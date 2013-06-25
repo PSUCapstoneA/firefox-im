@@ -11,7 +11,7 @@
 <script src="http://cdn.firebase.com/v0/firebase.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
 <script src="backbone-firebase.js"></script>
-<script src="FirebaseBackbone.js"></script>
+<script src="FirebaseBackboneTemp.js"></script>
 
 
 </head>
@@ -21,11 +21,11 @@
 
 	<header>
 		<h1> Messages </h1>
-		<input id = "senderName" type = "text" placeholder = "Type name:">
-		<input id = "messageText" type = "text" placeholder = "Type Message:">
-		<input type = "button" onclick = "FirefoxIM.setMessage()" value = "Submit">
+		<input id = "user" type = "text" placeholder = "Type name:">
+		<input id = "chatText" type = "text" placeholder = "Type Message:">
+		<input type = "button" onclick = "FirefoxIM.setChat()" value = "Submit">
 	</br>
-		<input type = "button" onclick = "FirefoxIM.displayMessages()" value = "Show Messages">
+		
 	</header>
 
 		<ul id = "message-list" ></ul>

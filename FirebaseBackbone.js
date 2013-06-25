@@ -3,71 +3,63 @@
 var FirefoxIM = window.FirefoxIM || {};
 
 //the message model.  our model will contain a name and text to start. 
-var Message =  Backbone.Model.extend({
-	/*defaults: function(){
-		return{
-		name: "",
-		text: "",
-		viewed: false
-		}
-	},
+var Chat =  Backbone.Model.extend({
+	
+});
 
-	initialize: function(){
-		if (!this.get("name")){
-			alert("Error name required to post message!" );
-		}, 
-
-	toggle: function() {
-			this.set({viewed: !this.get("viewed")});
-		}*/
-
+var User = Backbone.Model.extend({
+	
 });
 
 //Message list is the collection of messages  backed by 'Firebase'
-var MessageList = Backbone.Firebase.Collection.extend({
+var ChatList = Backbone.Firebase.Collection.extend({
 
 	//Reference to this collection's model.
-	model: Message,
-
+	model: Chat,
 	//Save all of the message items in a Firebase.
-	firebase: new Firebase("http://psucapstone-a.firebaseio.com/"),
-
-	/*viewed: function(){
-	
-	}*/
+	firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats")
 
 });
-var message = new Message;
-var messages = new MessageList;
+
+var UserList = Backbone.Firebase.Collection.extend({
+	model: User,
+
+    firebase: new Firebase("http://psucapstone-a.firebaseio.com/users")
+});
 
 
-//putMessage takes a message as an argument and then places the message in the message list 
+var user = new User;
+var users = new UserList;
+var chat = new Chat;
+var chats = new ChatList;
+
+
+//putChat takes a message as an argument and then places the message in the message list 
 //collection 
-FirefoxIM.putMessage = function(message){
-	messages.add(message);
+FirefoxIM.putChat = function(chat){
+	
+	chats.add(chat);
 }
 
 //setMessage function takes the value for name and text puts them into the message model and
 //then calls the putMessage function to place the message into the message collection
-FirefoxIM.setMessage = function (){
-	var name = $('#senderName').val();
-    var text = $('#messageText').val();
-	message.set({name: name, text: text});
-	this.putMessage(message);
-	
+FirefoxIM.setChat = function (){
+	var userID = $('#user').val();
+	var chatText = $('#chatText').val();
+	chat.set({userID: userID, chatText: chatText});
+	FirefoxIM.putChat(chat);	
+	FirefoxIM.userSet(chat);
 }
 
-//add a single message by creating a view and appending its elemnt to the '<ul>'
-FirefoxIM.displayMessage = function(thismessage){
-	var name = thismessage.get("name");
-	var text = thismessage.get("text");
-	$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#message-list'));
-        $('#message-list')[0].scrollTop = $('#message-list')[0].scrollHeight;
+FirefoxIM.userSet = function(){
 	
+	FirefoxIM.putUser(user);
 }
 
-//add all items in the messages collection at once
-FirefoxIM.displayMessages = function(){
-   messages.each(this.displayMessage, this);
+FirefoxIM.putUser = function(user){
+
+	users.add(user)
 }
+
+
 
