@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Sending Messages</title>
+
+</head>
+<body>
+
+	<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+	<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js'></script>
+	<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+	<script type='text/javascript' src='http://cdn.firebase.com/v0/firebase.js'></script>
+	<script type='text/javascript' src='backbone-firebase.js'></script>
+
+
+
+	<script>
+
+  var main = new Firebase("https://capstone-firefox-im.firebaseio.com/");
+
+  var chatGroup = main.child("ChatSession");
+  chatGroup.push({name: "user1", timeStamp: "12:OOpm", text: "Hello"});
+  chatGroup.push({name: "user2", timeStamp: "12:00pm", text: "Hi Back"});
+  chatGroup.push({name: "user1", timeStamp: "12:00pm", text: "I am so cool"});
+  chatGroup.push({name: "user2", timeStamp: "12:00pm", text: "Yeah, you are!!!"});
+
+  </script>
+
+</body>
+</html>
+
