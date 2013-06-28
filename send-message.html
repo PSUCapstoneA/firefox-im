@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <input type='text' id='nameInput' placeholder='Name'>
+    <textarea type='text' id='messageInput' cols="35" rows="4"></textarea>
+    <button id='myButton'>Send</button>
+
+    <script>
+      var myDataRef = new Firebase('https://psucapstone-a.firebaseio.com/');
+      var button = document.getElementById('myButton');
+
+	
+      	button.addEventListener('click', function(){
+
+		var name = $('#nameInput').val();
+       	 	var text = $('#messageInput').val();
+       	 	myDataRef.push({name: name, text: text});
+       	 	$('#messageInput').val('');
+		alert("Message Sent");
+
+	})
+
+
+
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+      });
+      function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
+  </body>
+</html>
