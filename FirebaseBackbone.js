@@ -68,27 +68,6 @@ FirefoxIM.setChat = function (){
 	var chatText = $('#chatText').val();
 	chat.set({userID: userID, chatText: chatText});
 	FirefoxIM.putChat(chat);	
-	//FirefoxIM.userSet(chat);
-}
-
-// the userSet function is responsible for storing the chat id's to the user model for specific user names
-// so later they can be displayed later 
-/*FirefoxIM.userSet = function(){
 	
-	FirefoxIM.putUser(user);
 }
 
-//put user is responsible for putting the information in the user model into the users collection
-FirefoxIM.putUser = function(user){
-
-	users.add(user)
-}
-
-
-FirefoxIM.getChat = function(){
-	this.options.firebase.on('child_added', function(childSnapshot, prevChildName){
-		 var newchat = childSnapshot.val();
-		 chatView.render(newChat.name, newChat.text);
-	});
-}
-*/
