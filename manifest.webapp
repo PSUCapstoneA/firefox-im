@@ -1,6 +1,7 @@
 {
     "version": "0.1.0",
     "name": "Capstone Firefox Message App",
+    "type" : "privileged",
     "launch_path": "/index.html",
     "description": "Firefox Instant Messaging App created for 2013 Portland State Capstone Project",
     "icons": {
@@ -19,6 +20,8 @@
     "permissions": {
         "desktop-notification": {
             "description" : "To show notifications"
-        }
+        },
+        "systemXHR": {},
+        "tcp-socket": {}
     }
 }
