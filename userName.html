@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>FirefoxOS IM</title>
+    <!-- FFOS Response Sheet -->
+    <!--link rel="stylesheet" type="text/css" href="/shared/style/responsive.css"-->
+    <!-- Share Gaia Sheets -->
+    <link rel="stylesheet" type="text/css" href="style/headers.css">
+    <link rel="stylesheet" type="text/css" href="style/lists.css">
+    <!-- App Styles -->
+     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js'></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+  </head>
+  <body>
+    <section role="region">
+    <header>
+    <button><span class="icon icon-back">back</span></button>
+    <h1>User Name</h1>
+    </header>
+    </section>
+    <div id='messagesDiv'></div>
+    <input type='text' id='nameInput' placeholder='Name'>
+    <input type='text' id='messageInput' placeholder='Message'>
+    <script>
+      var myDataRef = new Firebase('https://psucapstone-a.firebaseio.com/');
+      $('#messageInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var name = $('#nameInput').val();
+          var text = $('#messageInput').val();
+          myDataRef.push({name: name, text: text});
+          $('#messageInput').val('');
+        }
+      });
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.name, message.text);
+      });
+      function displayChatMessage(name, text) {
+        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
+  </body>
+</html>
+
