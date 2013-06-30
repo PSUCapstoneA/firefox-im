@@ -26,15 +26,18 @@
 </article>
 </section>
 <!-- App Javascript -->
-<script type='text/javascript' src='js/app.js'></script>
-<script type='text/javascript' src='js/receive-message-backbone-view.js'></script>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
 <script src="http://cdn.firebase.com/v0/firebase.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
-<script src="backbone-firebase.js"></script>
-<script src="FirebaseBackbone.js"></script><script>
-var chatview = new ChatView({firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats")});
+<script src="js/backbone-firebase.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/chatList.js"></script>
+<script src="js/chatView.js"></script>
+<script type='text/javascript' src='js/app.js'></script>
+<script>
+var chatview = new FirefoxIM.ChatView({firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats")});
 </script>
 </body>
