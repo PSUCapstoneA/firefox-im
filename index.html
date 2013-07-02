@@ -22,18 +22,24 @@
   <body role="application">
     <section role="region" id="list-view">
       <header>
-        <h1>Firefox IM</h1>
+        <menu type="toolbar">
+           <button><span class="icon icon-menu">menu</span></button>
+        </menu>
+        <form action="#">
+           <input type="text" placeholder="search" required="required">
+           <button type="reset">Remove text</button>
+        </form>
       </header>
       <article id="threads" data-type="list">
         <ul>
           <li>
-            <a href="#">
+            <a href="userName.html">
               <p>User 1</p>
               <p id="jquery">What's Up Dude?</p>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="userName.html">
               <p>User 2</p>
               <p>Not much</p>
             </a>
