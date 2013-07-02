@@ -1,39 +1,32 @@
 <html>
   <head>
-    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+	<script src="http://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+	<script src="js/backbone-firebase.js"></script>
+	<script src="js/chat.js"></script>
+	<script src="js/chatList.js"></script>
+	<script src="js/chatView.js"></script>
+	<script type='text/javascript' src='js/app.js'></script>
   </head>
   <body>
     <div id='messagesDiv'></div>
-    <input type='text' id='nameInput' placeholder='Name'>
-    <textarea type='text' id='messageInput' cols="35" rows="4"></textarea>
+    <input type='text' id='user' placeholder='Name'>
+    <textarea type='text' id='chatText' cols="35" rows="4"></textarea>
     <button id='myButton'>Send</button>
 
     <script>
-      var myDataRef = new Firebase('https://psucapstone-a.firebaseio.com/');
       var button = document.getElementById('myButton');
 
-	
-      	button.addEventListener('click', function(){
+	button.addEventListener('click', function(){
 
-		var name = $('#nameInput').val();
-       	 	var text = $('#messageInput').val();
-       	 	myDataRef.push({name: name, text: text});
-       	 	$('#messageInput').val('');
+		FirefoxIM.setChat();
 		alert("Message Sent");
 
 	})
 
-
-
-      myDataRef.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        displayChatMessage(message.name, message.text);
-      });
-      function displayChatMessage(name, text) {
-        $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-      };
     </script>
   </body>
 </html>
