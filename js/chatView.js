@@ -10,7 +10,7 @@ FirefoxIM.ChatView = Backbone.View.extend({
 		var viewObject = this;
 		this.options.firebase.on('child_added', function(childSnapshot, prevChildName) {
 			var newMessage = childSnapshot.val();
-			viewObject.render(newMessage.userID,newMessage.chatText);
+			viewObject.render(newMessage.name,FirefoxIM.encodeHTML(newMessage.text));
 		});
 	},
 
@@ -31,7 +31,7 @@ FirefoxIM.putChat = function(chat){
 }
 
 FirefoxIM.encodeHTML = function(s) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/, '&gt;').replace(/ /, '&nbsp;');
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/ /, '&nbsp;');
 }
 
 //setChat function takes the value for name and text puts them into the chat model and
