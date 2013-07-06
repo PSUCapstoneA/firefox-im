@@ -15,28 +15,6 @@
     <!-- Vendor Javascript -->
   </head>
   <body role="application">
-    <section role="region" id="list-view">
-      <header>
-          <menu type="toolbar">
-          </menu>
-      </header>
-      <article id="threads" data-type="list">
-        <ul>
-          <li>
-            <a href="#">
-              <p>User 1</p>
-              <p id="jquery">What's Up Dude?</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <p>User 2</p>
-              <p>Not much</p>
-            </a>
-          </li>
-        </ul>
-      </article>
-    </section>
     <!-- App Javascript -->
     <script type='text/javascript' src='js/components/jquery.min.js'></script>
     <script type='text/javascript' src='js/components/underscore-min.js'></script>
@@ -44,7 +22,16 @@
     <script type='text/javascript' src='js/components/firebase.js'></script>
     <script type='text/javascript' src='js/components/backbone-firebase.js'></script>
     <script type='text/javascript' src='js/templates.js'></script>
+    <!-- chat -->
+    <script type='text/javascript' src='js/chat.js'></script>
+    <script type='text/javascript' src='js/chatView.js'></script>
+    <!-- chat list -->
+    <script type='text/javascript' src='js/collections/chat_list.js'></script>
+    <script type='text/javascript' src='js/views/chat_list_view.js'></script>
+    <!-- splash screen -->
     <script type='text/javascript' src='js/views/install_view.js'></script>
+    <!-- Router and App: Keep at end -->
+    <script type='text/javascript' src='js/router.js'></script>
     <script type='text/javascript' src='js/app.js'></script>
   </body>
 </html>

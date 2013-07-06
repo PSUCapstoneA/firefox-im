@@ -10,7 +10,7 @@
   FirefoxIM.Views.InstallView = Backbone.View.extend({
     initialize: function() {
       this.manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) 
-        + "/manifest.webapp",
+        + "/manifest.webapp";
       if (navigator && navigator.mozApps && navigator.mozApps.install) {
         navigator.mozApps.checkInstall(this.manifestURL).onsuccess(function() {
           this.render();
