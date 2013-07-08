@@ -8,6 +8,7 @@ FirefoxIM.ChatView = Backbone.View.extend({
 	initialize: function(){
 
 		var viewObject = this;
+<<<<<<< HEAD
 		
 		this.options.firebase.on('value', function(dataSnapshot) {
 			var messages = dataSnapshot.val();
@@ -21,6 +22,11 @@ FirefoxIM.ChatView = Backbone.View.extend({
 				}	
 			}
 		});		
+=======
+		this.options.firebase.on('child_added', function(childSnapshot, prevChildName) {
+			var newMessage = childSnapshot.val();
+		  viewObject.render(newMessage.userID,FirefoxIM.encodeHTML(newMessage.chatText))
+>>>>>>> 260c856c9a76fe1795cfe284f94da8d57e1db113
 	},
 
 	render: function(name, text, idAttr){
