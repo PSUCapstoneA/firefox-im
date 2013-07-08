@@ -8,20 +8,38 @@ FirefoxIM.ChatView = Backbone.View.extend({
 	initialize: function(){
 
 		var viewObject = this;
-		this.options.firebase.on('child_added', function(childSnapshot, prevChildName) {
-			var newMessage = childSnapshot.val();
-		  viewObject.render(newMessage.userID,FirefoxIM.encodeHTML(newMessage.chatText))
+		
+		this.options.firebase.on('value', function(dataSnapshot) {
+			var messages = dataSnapshot.val();
+			if(messages != null){
+				for (var property in messages){
+						var idAttr = "\"" + property + "\""; 
+						var name = messages[property].userID;			
+						var text = FirefoxIM.encodeHTML(messages[property].chatText);	
+						if(!viewObject.hasMessageAlready(property))
+							viewObject.render(name,text,idAttr);
+				}	
+			}
+		});		
 	},
 
-	render: function(name, text){
-		this.addReceivedMessage(name,text);          
+	render: function(name, text, idAttr){
+		this.addReceivedMessage(name,text,idAttr);          
 	},	
 
-	addReceivedMessage: function(name, text){
-		$('#threads ul').append('<li><p>' + name + '</p><p>' + text + '</p></li>');
-	}   
+	addReceivedMessage: function(name, text, idAttr){
+		$('#threads ul').append('<li id=' + idAttr + '><p>' + name + '</p><p>' + text + '</p></li>');
+	},   
+
+	hasMessageAlready: function(idAttr){
+		if($("#" + idAttr).length > 0)
+			return true;
+		else
+			return false;
+	}
 
 });
+
 //putChat takes a message as an argument and then places the message in the chatList 
 //collection 
 FirefoxIM.putChat = function(chat){
