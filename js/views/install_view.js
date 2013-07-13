@@ -26,7 +26,7 @@
     },
 
     render: function() {
-      $('menu').append(this.$el);
+      $('#signin').after(this.$el);
     },
 
     hideInstall: function() {
