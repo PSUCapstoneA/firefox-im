@@ -14,8 +14,8 @@ FirefoxIM.ChatView = Backbone.View.extend({
 			if(messages != null){
 				for (var property in messages){
 						var idAttr = "\"" + property + "\""; 
-						var name = messages[property].userID;			
-						var text = FirefoxIM.encodeHTML(messages[property].chatText);	
+						var name = messages[property].userid;			
+						var text = messages[property].message;	
 						if(!viewObject.hasMessageAlready(property))
 							viewObject.render(name,text,idAttr);
 				}	
@@ -52,13 +52,14 @@ FirefoxIM.encodeHTML = function(s) {
    return s.replace(/&[^(amp;)(lt;)(quot;)(gt;)(nbsp;)]/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/ /, '&nbsp;');
 
 }
+var chatview = new FirefoxIM.ChatView({firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats/messages")});
 
 //setChat function takes the value for name and text puts them into the chat model and
 //then calls the putChat function to place the chat into the chats collection
 FirefoxIM.setChat = function (){
-	var userID = FirefoxIM.encodeHTML($('#user').val());
+	var userID = "";
 	var chatText = FirefoxIM.encodeHTML($('#chatText').val());
-	FirefoxIM.chat.set({userID: userID, chatText: chatText});
+	FirefoxIM.chat.set({userid: userID, message: chatText});
 	FirefoxIM.putChat(FirefoxIM.chat);	
 	
 }
