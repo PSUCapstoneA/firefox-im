@@ -10,7 +10,7 @@ FirefoxIM.ChatList = Backbone.Firebase.Collection.extend({
 	//Reference to this collection's model.
 	model: FirefoxIM.Chat,
 	//Save all of the message items in a Firebase.
-	firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats")
+	firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats/messages")
 
 });
 
