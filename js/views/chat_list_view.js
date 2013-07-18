@@ -9,6 +9,7 @@
 
     events: {
       "click .chat": "loadChatView",
+      "click #chatlist-new-chat": "loadNewChatView"
     },
 
     initialize: function(collection, options) {
@@ -23,13 +24,18 @@
     addChat: function(chat) {
       $('#chats ul').append(FirefoxIM.Templates.chatListChat({
         id: chat.get("id"),
-        message: chat.get("messages")[0]
+        message: chat.get("messages")
       }));
     },
 
     loadChatView: function(e) {
       var id = $(e.currentTarget).closest('.chat').data("chatID");
-      Backbone.router.navigate("chat/" + id, {trigger: true});
+      FirefoxIM.router.navigate("chat/" + id, {trigger: true});
+    },
+
+    loadNewChatView: function(e) {
+      e.preventDefault();
+      FirefoxIM.router.navigate("chat", {trigger: true});
     }
 
   });

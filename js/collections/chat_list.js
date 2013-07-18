@@ -10,7 +10,7 @@ FirefoxIM.Collections = FirefoxIM.Collections || {};
 
 FirefoxIM.Collections.ChatList = Backbone.Firebase.Collection.extend({
 	//Reference to this collection's model.
-	model: FirefoxIM.Chat,
+	model: FirefoxIM.Models.Chat
 });
 
 window.FirefoxIM = FirefoxIM;
