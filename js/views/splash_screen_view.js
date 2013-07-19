@@ -25,6 +25,7 @@
       if (error) {
         FirefoxIM.router.navigate('error', {trigger: true});
       } else if (user) {
+        FirefoxIM.user = user;
         FirefoxIM.router.navigate('chatList', {trigger: true});
       }
     },
