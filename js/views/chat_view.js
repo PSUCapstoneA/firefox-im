@@ -14,18 +14,26 @@
 
 		initialize: function(model, options){
 			this.chat = model;
-			this.listenTo(this.chat, "change", this.renderChat)		
+			this.listenTo(this.chat, "change", function(model) {
+				this.renderMessage(_.last(model.get("messages")))
+			});		
 		},
 
 		render: function(name, text, idAttr){
 	      $(document.body).append(this.$el);
+	      this.renderMessageList();
 	      return this;
 		},
 
-		renderChat: function(chat) {
-			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(
-				_.last(chat.get("messages"))
-			));
+		renderMessageList: function() {
+			var view = this,
+				messages = this.chat.get("messages");
+			$('#chat-thread-list ul').empty();
+			_.each(messages, function(message) { view.renderMessage(message); });
+		},
+
+		renderMessage: function(message) {
+			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message));
 		},
 
 		handleMessageInput: function(e) {
@@ -40,7 +48,12 @@
 
 		loadChatList: function() {
 			FirefoxIM.router.navigate("chatList", {trigger: true});
-		}
+		},
+
+    remove: function() {
+      this.stopListening(this.chat);
+      Backbone.View.prototype.remove.call(this);
+    }
 
 	});
 	window.FirefoxIM = FirefoxIM;

@@ -35,10 +35,10 @@
   };
 
   FirefoxIM.Templates.chatListChat = function(chat) {
-    return $('<li class="chat" data="'+ chat.id +'">'+
+    return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
       '<a href="#">'+
-      '<p>'+ chat.message+'<span class="chatlist-timestamp"><span></p>'+
-      '<p></p>'+
+      '<p>'+ chat.message.userId + '<span class="chatlist-timestamp"><span></p>'+
+      '<p>'+chat.message.text +'</p>'+
       '</a>'+
       '</li>');
   }
@@ -68,7 +68,7 @@
   }
 
   FirefoxIM.Templates.chat = function(chat) {
-    return $('<li data-id=' + chat.id + '><p>' + chat.name + '</p><p>' + chat.text + '</p></li>');
+    return $('<li data-id=' + chat.userId + '><p>' + chat.userId + '</p><p>' + chat.text + '</p></li>');
   }
 
   window.FirefoxIM = FirefoxIM;

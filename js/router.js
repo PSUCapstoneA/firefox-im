@@ -23,14 +23,13 @@
     },
 
     chat: function(chatId) {
-      var chat = this.getChatList.findWhere({id: chatId});
+      var chat = this.getChatList().findWhere({id: chatId});
       this.renderParentView(FirefoxIM.Views.ChatView, chat);
     },
 
     newChat: function() {
-      var chat = new FirefoxIM.Models.Chat();
-      this.renderParentView(FirefoxIM.Views.ChatView, chat);
-      this.getChatList().add(chat);
+      this.getChatList().add(new FirefoxIM.Models.Chat());
+      this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
     user: function(id) {
