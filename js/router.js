@@ -11,21 +11,25 @@
 
     routes: {
       "chat/:id": "chat",
+      "chat"    : "newChat",
       "user/:id": "user",
       "settings": "settings",
       "chatList": "chatList",
       "*default": "splashScreen"
     },
 
-    chatList: function(id) {
-      FirefoxIM.chatList = FirefoxIM.chatList || new FirefoxIM.Collections.ChatList(undefined, {
-        firebase: this.firebaseRef.child('chats')
-      }); 
-      this.renderParentView(FirefoxIM.Views.ChatListView, FirefoxIM.chatList);
+    chatList: function() {
+      this.renderParentView(FirefoxIM.Views.ChatListView, this.getChatList());
     },
 
-    chat: function(id) {
-      this.renderParentView(FirefoxIM.ChatView, {});
+    chat: function(chatId) {
+      var chat = this.getChatList().findWhere({id: chatId});
+      this.renderParentView(FirefoxIM.Views.ChatView, chat);
+    },
+
+    newChat: function() {
+      this.getChatList().add(new FirefoxIM.Models.Chat());
+      this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
     user: function(id) {
@@ -41,10 +45,19 @@
     },
 
     // ----------------------------------------------------Helpers
+    getChatList: function() {
+      FirefoxIM.chatList = FirefoxIM.chatList || new FirefoxIM.Collections.ChatList(undefined, {
+        firebase: this.firebaseRef.child('chats')
+      }); 
+      return FirefoxIM.chatList;
+    },
 
     renderParentView: function(view, data, options) {
       if (this.currentView) {
         this.currentView.remove();
+      }
+      if (!FirefoxIM.user) {
+        this.navigate("/", {trigger: true});
       }
       this.currentView = new view(data, options);
       this.currentView.render();
