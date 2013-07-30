@@ -15,38 +15,62 @@
 		initialize: function(model, options){
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
-				this.renderMessage(_.last(model.get("messages")))
+				this.renderMessageList();
 			});		
 		},
 
-		render: function(name, text, idAttr){
+				render: function(){
 	      $(document.body).append(this.$el);
 	      this.renderMessageList();
 	      return this;
 		},
 
 		renderMessageList: function() {
-			var view = this,
-				messages = this.chat.get("messages");
+			var view = this;
+			var shouldCallTrigger = false;
+			messages = this.chat.get("messages");
 			$('#chat-thread-list ul').empty();
-			_.each(messages, function(message) { view.renderMessage(message); });
+			
+			for(var i = 0; i< messages.length; i++){ 
+				shouldCallTrigger = view.changeReadStatus(messages[i],shouldCallTrigger);
+				view.renderMessage(messages[i]); 
+			};
+			
+			if(shouldCallTrigger){
+				this.chat.trigger("change",this.chat);
+			}
 		},
 
 		renderMessage: function(message) {
 			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message));
 		},
 
+		
+		changeReadStatus: function(message,shouldCallTrigger){
+			if(message.userId != FirefoxIM.user.id && message.read === false){
+				message.read = true;
+				return true;
+			}
+		
+			if(shouldCallTrigger === true)
+				return true;
+
+			return false;
+		},
+		
 		handleMessageInput: function(e) {
 			e.preventDefault();
 			var text = $("#chat-input-textarea");
 			this.chat.addMessage({
 				userId: FirefoxIM.user.id,
-				text: text.val()
+				text: text.val(),
+				time: Date.now(),
+				read: false
 			});
 			text.val("");
 		},
 
-		loadChatList: function() {
+		loadChatList: function(e) {
 			FirefoxIM.router.navigate("chatList", {trigger: true});
 		},
 

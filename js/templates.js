@@ -41,7 +41,7 @@
       '<p>'+chat.message.text +'</p>'+
       '</a>'+
       '</li>');
-  }
+  };
 
   //------------------------------------------------------------------Chat
   FirefoxIM.Templates.chatView = function(chat) {
@@ -65,11 +65,77 @@
       + '</p>'
       + '</form>'
       + '  </section>');
+  };
+
+  var getClockTime = function(epochTime){
+    return moment(epochTime).format("h:mm a");
+  };
+  
+  var getDate = function(epochTime){
+    return moment(epochTime).format("MMMM DD YYYY");
+  };
+  
+  var getDateEntry = function(epochTimeForNow,firebaseEpochTime){
+    var todayString = getDate(epochTimeForNow);
+    var yesterdayString = moment(epochTimeForNow).subtract('days', 1).format("MMMM DD YYYY");
+    var firebaseTimeString = getDate(firebaseEpochTime);
+    
+    if(firebaseTimeString == todayString)
+      return "Today";
+    else if(firebaseTimeString == yesterdayString)
+      return "Yesterday";
+    else
+      return firebaseTimeString;
+  };
+  
+  var previousDate = null;
+  
+  var isNewDate = function(dateString){
+    if(previousDate == null)
+      return true;
+    
+    if(dateString != previousDate)
+      return true;
+    else
+      return false;
+  };
+
+  var messageRead = function(message){
+    if(message.userId == FirefoxIM.user.id && message.read === true)
+      return true;
+    else 
+      return false;
+  };
+  
+  var addReadStatusToMessageHTML = function(chatMessage,messageAlreadyRead){
+    if(messageAlreadyRead)
+      chatMessage = chatMessage + '<p>Read</p>';
+    else
+      chatMessage = chatMessage + '</li>';
+  
+    return chatMessage;
+  }
+
+  var addDateEntryToMessageHTML = function(chatMessage,chatDate,isNewDate){
+    if(isNewDate){
+      previousDate = chatDate;
+      dateEntry = '<li><p>' + getDateEntry(Date.now(), chatDate) + '</p></li>';
+      chatMessage = dateEntry + chatMessage;
+    }
+    
+    return chatMessage;
   }
 
   FirefoxIM.Templates.chat = function(chat) {
-    return $('<li data-id=' + chat.userId + '><p>' + chat.userId + '</p><p>' + chat.text + '</p></li>');
-  }
+    var chatDate = getDate(chat.time);
+    var chatMessageHTML = '<li data-id=' + chat.userId + ' id=' + chat.time + '><p>' + chat.userId + '</p><p>' + chat.text + '</p><p>' + getClockTime(chat.time) + '</p>';
+    
+    chatMessageHTML = addReadStatusToMessageHTML(chatMessageHTML,messageRead(chat))
+      
+    chatMessageHTML = addDateEntryToMessageHTML(chatMessageHTML,chatDate,isNewDate(chatDate))
+    
+    return $(chatMessageHTML);
+  };
 
   window.FirefoxIM = FirefoxIM;
 }());

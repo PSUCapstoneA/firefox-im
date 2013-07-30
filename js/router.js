@@ -56,9 +56,11 @@
       if (this.currentView) {
         this.currentView.remove();
       }
+      
       if (!FirefoxIM.user) {
         this.navigate("/", {trigger: true});
       }
+
       this.currentView = new view(data, options);
       this.currentView.render();
     }
