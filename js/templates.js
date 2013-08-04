@@ -10,7 +10,7 @@
       + '<br>'
       + '<button id="signin">Login Using Persona</button>'
       + '</div>');
-  }
+  };
 
   FirefoxIM.Templates.installButton = function() {
     return $('<button id="install"><span class="icon icon-menu">Install</span></button>');
@@ -18,9 +18,9 @@
 
   //--------------------------------------------------------------- ChatList
   FirefoxIM.Templates.chatListView = function(chats) {
-    return $('<section role="region" id="list-view">'
+    var $html = $('<section role="region" id="list-view">'
       + '<header>'
-      + '<button><span class="icon icon-menu">menu</span></button>'
+      + '<button id="chatlist-open-menu"><span class="icon icon-menu">menu</span></button>'
       + '<menu type="toolbar">'
       + '  <a href="#" id="chatlist-new-chat"><span class="icon icon-compose">compose</span></a>'
       + '         </menu>'
@@ -32,6 +32,7 @@
       + '  </ul>'
       + '</article>'
       + '</section>');
+      return $html;
   };
 
   FirefoxIM.Templates.chatListChat = function(chat) {
@@ -115,6 +116,35 @@
   
     return chatMessage;
   }
+
+  FirefoxIM.Templates.chat = function(chat) {
+    return $('<li data-id=' + chat.userId + '><p>' + chat.userId + '</p><p>' + chat.text + '</p></li>');
+  };
+
+  //-----------------------------------------------------------------Settings
+  FirefoxIM.Templates.settings = function() { return $('<div/>'); }
+  
+  //-----------------------------------------------------------------User
+  FirefoxIM.Templates.user = function() { return $('<div/>'); }
+
+  //----------------------------------------------------------------Drawer
+
+  FirefoxIM.Templates.drawer = function(userid) {
+    return $('<section data-type="sidebar">'
+    +'<header>'
+    +'<menu type="toolbar">'
+    +'<a href="#" id="chatlist-close-menu"><span class="icon icon-close">add</span></a>'
+    +'</menu>'
+    +'<h1>Firefox IM</h1>'
+    +'</header>'
+    +'<nav>'
+    +'<ul>'
+    +'<li><a href="#" data-target="user/' + userid + '">User</a></li>'
+    +'<li><a href="#" data-target="user/' + userid + '/contacts">Contacts</a></li>'
+    +'<li><a href="#" data-target="settings">Settings</a></li>'
+    +'</nav>'
+    +'</section>');
+  };
 
   var addDateEntryToMessageHTML = function(chatMessage,chatDate,isNewDate){
     if(isNewDate){
