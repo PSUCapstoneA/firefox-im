@@ -33,11 +33,11 @@
     },
 
     user: function(id) {
-      this.renderParentView(FirefoxIM.UserView, {});
+      this.renderParentView(FirefoxIM.Views.UserView, {});
     },
 
     settings: function() {
-      this.renderParentView(FirefoxIM.SettingsView, {});
+      this.renderParentView(FirefoxIM.Views.SettingsView, {});
     },
 
     splashScreen: function() {
