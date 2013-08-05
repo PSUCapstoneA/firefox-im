@@ -9,6 +9,7 @@
 
     events: {
       "click .chat": "loadChatView",
+      "click #contact": "loadContactView",
       "click #chatlist-new-chat": "loadNewChatView"
     },
 
@@ -54,7 +55,12 @@
     remove: function() {
       this.stopListening(this.chatList);
       Backbone.View.prototype.remove.call(this);
+    },
+
+    loadContactView: function() {
+      FirefoxIM.router.navigate("users/" + FirefoxIM.user.id + "/contacts" ,{trigger: true});
     }
+
 
   });
 
