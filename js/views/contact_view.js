@@ -50,7 +50,12 @@
         });
         
         var contactsForUser = this.user.get("contacts");
-        contactsForUser.push(newContact.toLowerCase());
+	if(!contactsForUser){
+		this.user.set({contacts:[newContact.toLowerCase()]});
+	}
+	else{
+        	contactsForUser.push(newContact.toLowerCase());
+	}
         contactsForUser.sort();
         this.user.set("contacts",contactsForUser);
         this.user.trigger("change",this.user);
