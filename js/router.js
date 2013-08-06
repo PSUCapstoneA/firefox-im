@@ -12,6 +12,7 @@
     routes: {
       "chat/:id": "chat",
       "chat"    : "newChat",
+      "user/:id/contacts": "userList",
       "user/:id": "user",
       "settings": "settings",
       "chatList": "chatList",
@@ -25,6 +26,10 @@
     chat: function(chatId) {
       var chat = this.getChatList().findWhere({id: chatId});
       this.renderParentView(FirefoxIM.Views.ChatView, chat);
+    },
+    userList: function(id) {
+      var userList = this.getUserList();
+      this.renderParentView(FirefoxIM.Views.ContactView, userList);
     },
 
     newChat: function() {
