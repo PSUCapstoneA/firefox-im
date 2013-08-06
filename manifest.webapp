@@ -19,7 +19,6 @@
     "permissions": {
         "desktop-notification": {
             "description" : "To show notifications"
-        },
-        "systemXHR": {}
+        }
     }
 }

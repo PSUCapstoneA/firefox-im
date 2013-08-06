@@ -12,7 +12,7 @@
     routes: {
       "chat/:id": "chat",
       "chat"    : "newChat",
-      "user/:id/contacts": "userList",
+      "users/:id/contacts": "userList",
       "user/:id": "user",
       "settings": "settings",
       "chatList": "chatList",
@@ -38,11 +38,11 @@
     },
 
     user: function(id) {
-      this.renderParentView(FirefoxIM.UserView, {});
+      this.renderParentView(FirefoxIM.Views.UserView, {});
     },
 
     settings: function() {
-      this.renderParentView(FirefoxIM.SettingsView, {});
+      this.renderParentView(FirefoxIM.Views.SettingsView, {});
     },
 
     splashScreen: function() {
@@ -57,6 +57,13 @@
       return FirefoxIM.chatList;
     },
 
+    getUserList: function() {
+      FirefoxIM.userList = FirefoxIM.userList || new FirefoxIM.Collections.UserList(undefined, {
+        firebase: this.firebaseRef.child('users')
+      });
+      return FirefoxIM.userList;
+    },
+
     renderParentView: function(view, data, options) {
       if (this.currentView) {
         this.currentView.remove();
@@ -66,6 +73,7 @@
         this.navigate("/", {trigger: true});
       }
 
+      
       this.currentView = new view(data, options);
       this.currentView.render();
     }

@@ -9,7 +9,8 @@
 
 		events: {
 			"click #chat-submit-text": "handleMessageInput",
-			"click #chat-back-arrow": "loadChatList"
+			"click #chat-back-arrow": "loadChatList",
+			"keyup #chat-input-textarea": "resizeInput"
 		},
 
 		initialize: function(model, options){
@@ -21,6 +22,8 @@
 
 				render: function(){
 	      $(document.body).append(this.$el);
+	      $('#chat-input-textarea')[0].style.height = "30px";
+	      bottom = $('#chat-input-textarea').closest('form')[0].style.height = "30px"
 	      this.renderMessageList();
 	      return this;
 		},
@@ -44,8 +47,7 @@
 		renderMessage: function(message) {
 			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message));
 		},
-
-		
+	
 		changeReadStatus: function(message,shouldCallTrigger){
 			if(message.userId != FirefoxIM.user.id && message.read === false){
 				message.read = true;
@@ -57,7 +59,7 @@
 
 			return false;
 		},
-		
+
 		handleMessageInput: function(e) {
 			e.preventDefault();
 			var text = $("#chat-input-textarea");
@@ -70,13 +72,19 @@
 			text.val("");
 		},
 
-		loadChatList: function(e) {
+		loadChatList: function() {
 			FirefoxIM.router.navigate("chatList", {trigger: true});
 		},
 
-    remove: function() {
-      this.stopListening(this.chat);
-      Backbone.View.prototype.remove.call(this);
+    resizeInput: function(e){
+    	var input = $('#chat-input-textarea')[0];
+    	var bottom = $('#chat-input-textarea').closest('form')[0],
+    			heightAdjustment  = (input.scrollHeight >= input.clientHeight) ?
+        (input.scrollHeight) :
+        (input.clientHeight);
+      if (heightAdjustment > 110)  { heightAdjustment = 110 }
+      input.style.height = heightAdjustment - 10 + "px";
+      bottom.style.height = heightAdjustment + "px";
     }
 
 	});
