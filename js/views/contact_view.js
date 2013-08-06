@@ -11,7 +11,6 @@
       "click #back": "goback",
       "click #addUser": "addContact",
       "click .user": "loadNewChatView"
-      //"click #submitUser": "addContact"
     },
 
     initialize: function(collection, options) {

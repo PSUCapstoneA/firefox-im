@@ -62,11 +62,10 @@
         this.currentView.remove();
       }
       
-      /*if (!FirefoxIM.user) {
+      if (!FirefoxIM.user) {
         this.navigate("/", {trigger: true});
-      }*/
+      }
 
-      FirefoxIM.user = {id:"jeffwest_98@yahoo,com"};
       this.currentView = new view(data, options);
       this.currentView.render();
     }
