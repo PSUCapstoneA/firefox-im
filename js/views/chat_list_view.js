@@ -6,10 +6,14 @@
   FirefoxIM.Views.ChatListView = Backbone.View.extend({
 
     el: FirefoxIM.Templates.chatListView(),
+    drawer: FirefoxIM.Templates.drawer,
 
     events: {
       "click .chat": "loadChatView",
-      "click #chatlist-new-chat": "loadNewChatView"
+      "click #chatlist-open-menu": "openMenu",
+      "click #chatlist-close-menu": "closeMenu",
+
+      "click #contact": "loadContactView",
     },
 
     initialize: function(collection, options) {
@@ -18,6 +22,7 @@
     },
 
     render: function() {
+      $(document.body).append(this.drawer(FirefoxIM.user.id));
       $(document.body).append(this.$el);
       this.renderChatList();
       return this;
@@ -51,10 +56,39 @@
       FirefoxIM.router.navigate("chat", {trigger: true});
     },
 
+    openMenu: function(e) {
+      e.preventDefault();
+      var $sidebar = $('section[data-type="sidebar"]');
+      $sidebar.addClass("open-drawer");
+      $sidebar.one('click', '#chatlist-close-menu', this.closeMenu)
+      $sidebar.one('click', 'li', this.navigate)
+    },
+
+    navigate: function(e) {
+      e.preventDefault();
+      var target = $(e.currentTarget).children('a').data('target');
+      FirefoxIM.router.navigate(target, {trigger: true});
+    },
+
+    closeMenu: function(e) {
+      e.preventDefault();
+      $('section[data-type="sidebar"]').removeClass("open-drawer");
+    },
+
     remove: function() {
+
+      $('section[data-type="sidebar"]').remove();
       this.stopListening(this.chatList);
-      Backbone.View.prototype.remove.call(this);
+      return Backbone.View.prototype.remove.call(this);
+    },
+
+     
+    loadContactView: function() {
+      var url = "users/" + FirefoxIM.user.id + "/contacts";
+      FirefoxIM.router.navigate(url ,{trigger: true});
     }
+
+
 
   });
 

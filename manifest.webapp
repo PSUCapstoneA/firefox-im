@@ -4,11 +4,11 @@
     "launch_path": "/index.html",
     "description": "Firefox Instant Messaging App created for 2013 Portland State Capstone Project",
     "icons": {
-        "16": "/images/logo16.png",
-        "32": "/images/logo32.png",
-        "48": "/images/logo48.png",
-        "64": "/images/logo64.png",
-        "128": "/images/logo128.png"
+        "16": "/images/test_16x16.png",
+        "32": "/images/test_32x32.png",
+        "48": "/images/test_48x48.png",
+        "64": "/images/test_64x64.png",
+        "128": "/images/test_128x128.png"
     },
     "developer": {
         "name": "Portland State 2013 Capstone Team A",
@@ -19,7 +19,6 @@
     "permissions": {
         "desktop-notification": {
             "description" : "To show notifications"
-        },
-        "systemXHR": {}
+        }
     }
 }

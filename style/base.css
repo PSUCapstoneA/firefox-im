@@ -11,13 +11,19 @@ body {
 }
 
 #chat-thread-list {
-  height: 100%;
-  min-height: 100%;
-  margin: 0 auto -87px;
+  height: 91%;
+  margin: 0 auto 87px;
   overflow: auto;
+  padding-bottom: 42px;
+  width:100%;
 }
 
-
+section[role="region"] > header:first-child {
+  position: fixed;
+  width: 100%;
+  right:0;
+  top:0;
+}
 
 section[role="region"] {
   position: absolute;
@@ -28,3 +34,23 @@ section[role="region"] {
   background: #fff;
 }
 
+form[role="search"].bottom {
+  z-index:2;
+  position:fixed;
+  bottom:0;
+  width: 100%;
+  left:0;
+  right:0;
+}
+
+[data-type="list"] {
+  padding-top:5rem;
+}
+
+.open-drawer {
+  z-index:1000;
+}
+
+section[data-type="sidebar"] > header .icon.icon-close {
+  background-image: url(headers/images/icons/close.png);
+}
