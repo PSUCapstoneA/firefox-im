@@ -33,7 +33,7 @@
     },
 
     newChat: function() {
-      this.getChatList().add(new FirefoxIM.Models.Chat({user:{jeff:true,brian:true}}));
+      this.getChatList().add(new FirefoxIM.Models.Chat({users:{jeff:true,brian:true}}));
       this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
