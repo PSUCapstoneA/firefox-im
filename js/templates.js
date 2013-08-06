@@ -20,9 +20,9 @@
   FirefoxIM.Templates.chatListView = function(chats) {
     return $('<section role="region" id="list-view">'
       + '<header>'
-      + '<button id="contact"><span class="icon icon-menu">menu</span></button>'
+      + '<button><span class="icon icon-menu">menu</span></button>'
       + '<menu type="toolbar">'
-      + '  <a href="#" id="chatlist-new-chat"><span class="icon icon-compose">compose</span></a>'
+      + '  <button id="contact"><span class="icon icon-user">user</span></button>'
       + '         </menu>'
       + '         <h1>Messages</h1>'
       + '     </header>'   
