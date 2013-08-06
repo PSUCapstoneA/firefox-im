@@ -20,7 +20,7 @@
   FirefoxIM.Templates.chatListView = function(chats) {
     return $('<section role="region" id="list-view">'
       + '<header>'
-      + '<button><span class="icon icon-menu">menu</span></button>'
+      + '<button id="contact"><span class="icon icon-menu">menu</span></button>'
       + '<menu type="toolbar">'
       + '  <a href="#" id="chatlist-new-chat"><span class="icon icon-compose">compose</span></a>'
       + '         </menu>'
@@ -33,6 +33,35 @@
       + '</article>'
       + '</section>');
   };
+
+  FirefoxIM.Templates.contactView = function(contacts) {
+     return $('<body role="application">' +
+        '<section role="region">'+
+        '<header>'+
+           '<button id="back"><span class="icon icon-back">back</span></button>'+
+           '<menu type="toolbar">'+
+                '<button id="addUser"><span class="icon icon-add">add</span></button>'+
+           '</menu>'+
+           '<h1>Contact</h1>'+
+        '</header>'+
+          '<article id="users" data-type="list">'+
+        '<ul>'+
+        '</ul>'+
+        '</article>'+
+        '</section>');
+  };
+
+   FirefoxIM.Templates.userList = function(contact) {
+      return $('<li class="user" id="' + contact + '">' +
+        '<p>'+ contact + '</p>' +
+        '</li>');
+   }
+
+   FirefoxIM.Templates.contact = function(users) {
+    return _.reduce(users, function(memo,users) {
+        return memo + FirefoxIM.Templates.userList(user);
+      }, "");
+  }
 
   FirefoxIM.Templates.chatListChat = function(chat) {
     return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
