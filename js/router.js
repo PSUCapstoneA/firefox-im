@@ -11,7 +11,7 @@
 
     routes: {
       "chat/:id": "chat",
-      "chat"    : "newChat",
+      "chat/newchat/:id"    : "newChat",
       "users/:id/contacts": "userList",
       "user/:id": "user",
       "settings": "settings",
@@ -19,7 +19,9 @@
       "*default": "splashScreen"
     },
 
-    chatList: function() {
+    chatList: function() { 
+      //var userId = FirefoxIM.user.id;
+      //this.getUserList().add(new FirefoxIM.Models.User());
       this.renderParentView(FirefoxIM.Views.ChatListView, this.getChatList());
     },
 
@@ -32,8 +34,9 @@
       this.renderParentView(FirefoxIM.Views.ContactView, userList);
     },
 
-    newChat: function() {
-      this.getChatList().add(new FirefoxIM.Models.Chat({users:{jeff:true,brian:true}}));
+    newChat: function(userId) {
+      var name = FirefoxIM.user.id;
+      this.getChatList().add(new FirefoxIM.Models.Chat({authUser:[name,userId]}));
       this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
@@ -72,7 +75,6 @@
       if (!FirefoxIM.user) {
         this.navigate("/", {trigger: true});
       }
-
       
       this.currentView = new view(data, options);
       this.currentView.render();

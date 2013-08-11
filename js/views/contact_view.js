@@ -34,30 +34,39 @@
 
     loadNewChatView: function(e){
       e.preventDefault();
-      FirefoxIM.router.navigate("chat",{trigger:true});
+      var id = $(e.currentTarget).closest('.user').data("userId");
+      FirefoxIM.router.navigate("chat/newchat/" + id ,{trigger:true});
     },
     
     addContact: function(e){
         e.preventDefault();
         
-        var newContact = window.prompt("Input new user you want to add:", "");
-        this.user = this.userList.findWhere({id:FirefoxIM.user.id});
-        
-        //sets contacts change listener
-        this.listenTo(this.user,"change", function(model){
-          this.renderContactsList();
-        });
-        
-        var contactsForUser = this.user.get("contacts");
-	if(!contactsForUser){
-		this.user.set({contacts:[newContact.toLowerCase()]});
+	var newContact = window.prompt("Input new user you want to add:", "");
+	var vaildUser = this.userList.findWhere({id:newContact});
+
+	while(!vaildUser || newContact == null){
+		newContact = window.prompt("Invalid user name,please try again:", "");
+        	vaildUser = this.userList.findWhere({id:newContact});
 	}
-	else{
-        	contactsForUser.push(newContact.toLowerCase());
-	}
-        contactsForUser.sort();
-        this.user.set("contacts",contactsForUser);
-        this.user.trigger("change",this.user);
+
+	if(newContact!=null && vaildUser){
+        	this.user = this.userList.findWhere({id:FirefoxIM.user.id});
+        	//sets contacts change listener
+        	this.listenTo(this.user,"change", function(model){
+          	this.renderContactsList();
+        	});
+        
+        	var contactsForUser = this.user.get("contacts");
+		if(!contactsForUser){
+			this.user.set({contacts:[newContact.toLowerCase()]});
+		}
+		else{
+        		contactsForUser.push(newContact.toLowerCase());
+		}
+        	contactsForUser.sort();
+        	this.user.set("contacts",contactsForUser);
+        	this.user.trigger("change",this.user);
+	}	
      },
 
     listContacts: function(user) {

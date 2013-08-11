@@ -53,7 +53,7 @@
   };
 
    FirefoxIM.Templates.userList = function(contact) {
-      return $('<li class="user" id="' + contact + '">' +
+      return $('<li class="user" data-user-id="' + contact + '">' +
         '<p>'+ contact + '</p>' +
         '</li>');
    }

@@ -73,6 +73,16 @@
 		},
 
 		loadChatList: function() {
+			/*var checkEmptyMessage = this.chat.get("messages");
+			if(!checkEmptyMessage){
+				var id = this.chat.get("id");
+				var removeRef = new Firebase('https://psucapstone-a.firebaseio.com/chats/' + id );
+				removeRef.remove();
+				}*/
+			if(!messages){
+				var id = this.chat.get("id");
+				var removeRef = new Firebase('https://psucapstone-a.firebaseio.com/chats/' + id ); 
+				removeRef.remove();}
 			FirefoxIM.router.navigate("chatList", {trigger: true});
 		},
 
