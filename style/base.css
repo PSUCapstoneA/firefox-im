@@ -54,3 +54,19 @@ form[role="search"].bottom {
 section[data-type="sidebar"] > header .icon.icon-close {
   background-image: url(headers/images/icons/close.png);
 }
+
+#newUserInputs {
+  font-size: 1.6rem;
+  padding-left: 1.5rem;
+}
+
+#newUserInputs label{
+  float: left;
+  width: 25%;
+}
+
+.newUserInputError{
+  padding-left: 1.5rem;
+  font-size: 1.6rem;
+  color: red;
+}
