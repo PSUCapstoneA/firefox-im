@@ -12,6 +12,10 @@
     },
 
     initialize: function(firebaseRef, options) {
+      //gets the latest userList
+      FirefoxIM.userList  =  FirefoxIM.router.getUserList();
+      this.listenTo(FirefoxIM.userList,"add", function(){});
+      
       this.auth = new FirebaseSimpleLogin(firebaseRef, this.authCallback);
       this.install = new FirefoxIM.Views.InstallView();
     },
@@ -26,7 +30,13 @@
         FirefoxIM.router.navigate('error', {trigger: true});
       } else if (user) {
         FirefoxIM.user = user;
-        FirefoxIM.router.navigate('chatList', {trigger: true});
+        
+        if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id})){
+          FirefoxIM.router.navigate("newUser", {trigger: true});
+          return;
+        }  
+        
+        FirefoxIM.router.navigate("chatList", {trigger: true});
       }
     },
 

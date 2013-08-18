@@ -28,3 +28,19 @@ section[role="region"] {
   background: #fff;
 }
 
+#newUserInputs {
+  font-size: 1.6rem;
+  padding-left: 1.5rem;
+}
+
+#newUserInputs label{
+  float: left;
+  width: 25%;
+}
+
+.newUserInputError{
+  padding-left: 1.5rem;
+  font-size: 1.6rem;
+  color: red;
+}
+

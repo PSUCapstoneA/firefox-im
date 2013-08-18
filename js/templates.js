@@ -12,6 +12,18 @@
       + '</div>');
   }
 
+  FirefoxIM.Templates.newUserInputs = function() {
+    return $('<div id="newUserInputs">'
+      + "<p> You are brand new user. Input user info.</p>"
+      + '<br>'
+      + '<label>username</label><input type="text" id="username"><br>'
+      + '<label>e-mail</label><input type="text" id="email"><br>'
+      + '<label>phone</label><input type="text" id="phone"><br>'
+      + '<button id="submit">Submit</button>'
+      + '</div>');
+  };
+
+
   FirefoxIM.Templates.installButton = function() {
     return $('<button id="install"><span class="icon icon-menu">Install</span></button>');
   };
@@ -126,9 +138,20 @@
     return chatMessage;
   }
 
-  FirefoxIM.Templates.chat = function(chat) {
+  FirefoxIM.Templates.chat = function(chat,messageArrayIndex) {
+    if(messageArrayIndex === 0){
+      previousDate = null;
+    }
+    
     var chatDate = getDate(chat.time);
-    var chatMessageHTML = '<li data-id=' + chat.userId + ' id=' + chat.time + '><p>' + chat.userId + '</p><p>' + chat.text + '</p><p>' + getClockTime(chat.time) + '</p>';
+    var username = "you";
+    
+    if(chat.userId !== FirefoxIM.user.id){
+      var user = FirefoxIM.userList.findWhere({id: chat.userId})
+      username = user.get("username");
+    }
+    
+    var chatMessageHTML = '<li data-id=' + chat.userId + ' id=' + chat.time + '><p>' + username + '</p><p>' + chat.text + '</p><p>' + getClockTime(chat.time) + '</p>';
     
     chatMessageHTML = addReadStatusToMessageHTML(chatMessageHTML,messageRead(chat))
       

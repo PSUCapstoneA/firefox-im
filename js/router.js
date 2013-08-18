@@ -15,6 +15,7 @@
       "user/:id": "user",
       "settings": "settings",
       "chatList": "chatList",
+      "newUser" : 'newUserInput',
       "*default": "splashScreen"
     },
 
@@ -40,6 +41,10 @@
       this.renderParentView(FirefoxIM.SettingsView, {});
     },
 
+    newUserInput: function(){
+      this.renderParentView(FirefoxIM.Views.NewUserInputView, {});
+    },
+
     splashScreen: function() {
       this.renderParentView(FirefoxIM.Views.SplashScreenView, this.firebaseRef)
     },
@@ -50,6 +55,13 @@
         firebase: this.firebaseRef.child('chats')
       }); 
       return FirefoxIM.chatList;
+    },
+
+    getUserList: function() {
+     FirefoxIM.userList = FirefoxIM.userList || new FirefoxIM.Collections.UserList(undefined, {
+       firebase: this.firebaseRef.child('users')
+      });
+      return FirefoxIM.userList;
     },
 
     renderParentView: function(view, data, options) {

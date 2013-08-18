@@ -13,10 +13,15 @@
 		},
 
 		initialize: function(model, options){
+			
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
 			});		
+			
+			//gets the latest userList
+			FirefoxIM.userList  =  FirefoxIM.router.getUserList();
+      		this.listenTo(FirefoxIM.userList,"add", function(){});
 		},
 
 				render: function(){
@@ -33,7 +38,7 @@
 			
 			for(var i = 0; i< messages.length; i++){ 
 				shouldCallTrigger = view.changeReadStatus(messages[i],shouldCallTrigger);
-				view.renderMessage(messages[i]); 
+				view.renderMessage(messages[i],i); 
 			};
 			
 			if(shouldCallTrigger){
@@ -41,11 +46,10 @@
 			}
 		},
 
-		renderMessage: function(message) {
-			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message));
+		renderMessage: function(message,messageArrayIndex) {
+			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message,messageArrayIndex));
 		},
 
-		
 		changeReadStatus: function(message,shouldCallTrigger){
 			if(message.userId != FirefoxIM.user.id && message.read === false){
 				message.read = true;
@@ -61,6 +65,7 @@
 		handleMessageInput: function(e) {
 			e.preventDefault();
 			var text = $("#chat-input-textarea");
+			
 			this.chat.addMessage({
 				userId: FirefoxIM.user.id,
 				text: text.val(),
@@ -68,6 +73,7 @@
 				read: false
 			});
 			text.val("");
+			
 		},
 
 		loadChatList: function(e) {
