@@ -10,30 +10,25 @@
       + '<br>'
       + '<button id="signin">Login Using Persona</button>'
       + '</div>');
+  }
+
+  FirefoxIM.Templates.newUserInputs = function() {
+    return $('<div id="newUserInputs">'
+      + "<p> You are brand new user. Input user info.</p>"
+      + '<br>'
+      + '<label>username</label><input type="text" id="username"><br>'
+      + '<label>e-mail</label><input type="text" id="email"><br>'
+      + '<label>phone</label><input type="text" id="phone"><br>'
+      + '<button id="submit">Submit</button>'
+      + '</div>');
   };
+
 
   FirefoxIM.Templates.installButton = function() {
     return $('<button id="install"><span class="icon icon-menu">Install</span></button>');
   };
 
-  //--------------------------------------------------------------- ChatList
-  FirefoxIM.Templates.chatListView = function(chats) {
-    var $html = $('<section role="region" id="list-view">'
-      + '<header>'
-      + '<button id="chatlist-open-menu"><span class="icon icon-menu">menu</span></button>'
-      + '<menu type="toolbar">'
-      + '  <button id="contact"><span class="icon icon-user">user</span></button>'
-      + '         </menu>'
-      + '         <h1>Messages</h1>'
-      + '     </header>'   
-      + '</header>'
-      + '<article id="chats" data-type="list">'
-      + '  <ul>'
-      + '  </ul>'
-      + '</article>'
-      + '</section>');
-      return $html;
-  };
+   //---------------------------------------------------------------Contacts
 
   FirefoxIM.Templates.contactView = function(contacts) {
      return $('<body role="application">' +
@@ -64,6 +59,24 @@
       }, "");
   }
 
+  //--------------------------------------------------------------- ChatList
+  FirefoxIM.Templates.chatListView = function(chats) {
+    return $('<section role="region" id="list-view">'
+      + '<header>'
+      + '<button><span class="icon icon-menu">menu</span></button>'
+      + '<menu type="toolbar">'
+      + '  <a href="#" id="chatlist-new-chat"><span class="icon icon-compose">compose</span></a>'
+      + '         </menu>'
+      + '         <h1>Messages</h1>'
+      + '     </header>'   
+      + '</header>'
+      + '<article id="chats" data-type="list">'
+      + '  <ul>'
+      + '  </ul>'
+      + '</article>'
+      + '</section>');
+  };
+
   FirefoxIM.Templates.chatListChat = function(chat) {
     return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
       '<a href="#">'+
@@ -71,6 +84,32 @@
       '<p>'+chat.message.text +'</p>'+
       '</a>'+
       '</li>');
+  };
+
+
+  //-----------------------------------------------------------------Settings
+  FirefoxIM.Templates.settings = function() { return $('<div/>'); }
+  
+  //-----------------------------------------------------------------User
+  FirefoxIM.Templates.user = function() { return $('<div/>'); }
+
+  //----------------------------------------------------------------Drawer
+
+  FirefoxIM.Templates.drawer = function(userid) {
+    return $('<section data-type="sidebar">'
+    +'<header>'
+    +'<menu type="toolbar">'
+    +'<a href="#" id="chatlist-close-menu"><span class="icon icon-close">add</span></a>'
+    +'</menu>'
+    +'<h1>Firefox IM</h1>'
+    +'</header>'
+    +'<nav>'
+    +'<ul>'
+    +'<li><a href="#" data-target="user/' + userid + '">User</a></li>'
+    +'<li><a href="#" data-target="user/' + userid + '/contacts">Contacts</a></li>'
+    +'<li><a href="#" data-target="settings">Settings</a></li>'
+    +'</nav>'
+    +'</section>');
   };
 
   //------------------------------------------------------------------Chat
@@ -146,35 +185,6 @@
     return chatMessage;
   }
 
-  FirefoxIM.Templates.chat = function(chat) {
-    return $('<li data-id=' + chat.userId + '><p>' + chat.userId + '</p><p>' + chat.text + '</p></li>');
-  };
-
-  //-----------------------------------------------------------------Settings
-  FirefoxIM.Templates.settings = function() { return $('<div/>'); }
-  
-  //-----------------------------------------------------------------User
-  FirefoxIM.Templates.user = function() { return $('<div/>'); }
-
-  //----------------------------------------------------------------Drawer
-
-  FirefoxIM.Templates.drawer = function(userid) {
-    return $('<section data-type="sidebar">'
-    +'<header>'
-    +'<menu type="toolbar">'
-    +'<a href="#" id="chatlist-close-menu"><span class="icon icon-close">add</span></a>'
-    +'</menu>'
-    +'<h1>Firefox IM</h1>'
-    +'</header>'
-    +'<nav>'
-    +'<ul>'
-    +'<li><a href="#" data-target="user/' + userid + '">User</a></li>'
-    +'<li><a href="#" data-target="user/' + userid + '/contacts">Contacts</a></li>'
-    +'<li><a href="#" data-target="settings">Settings</a></li>'
-    +'</nav>'
-    +'</section>');
-  };
-
   var addDateEntryToMessageHTML = function(chatMessage,chatDate,isNewDate){
     if(isNewDate){
       previousDate = chatDate;
@@ -185,9 +195,20 @@
     return chatMessage;
   }
 
-  FirefoxIM.Templates.chat = function(chat) {
+  FirefoxIM.Templates.chat = function(chat,messageArrayIndex) {
+    if(messageArrayIndex === 0){
+      previousDate = null;
+    }
+    
     var chatDate = getDate(chat.time);
-    var chatMessageHTML = '<li data-id=' + chat.userId + ' id=' + chat.time + '><p>' + chat.userId + '</p><p>' + chat.text + '</p><p>' + getClockTime(chat.time) + '</p>';
+    var username = "you";
+    
+    if(chat.userId !== FirefoxIM.user.id){
+      var user = FirefoxIM.userList.findWhere({id: chat.userId})
+      username = user.get("username");
+    }
+    
+    var chatMessageHTML = '<li data-id=' + chat.userId + ' id=' + chat.time + '><p>' + username + '</p><p>' + chat.text + '</p><p>' + getClockTime(chat.time) + '</p>';
     
     chatMessageHTML = addReadStatusToMessageHTML(chatMessageHTML,messageRead(chat))
       
