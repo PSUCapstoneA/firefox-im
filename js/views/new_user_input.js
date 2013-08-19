@@ -42,8 +42,9 @@
       FirefoxIM.userList.add(newUser);
       FirefoxIM.router.navigate('chatList', {trigger: true});
     }
-  
+
   });
 
+    
   window.FirefoxIM = FirefoxIM;
 }())
