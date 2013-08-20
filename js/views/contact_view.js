@@ -42,6 +42,7 @@
         e.preventDefault();
         
 	var newContact = window.prompt("Input new user you want to add:", "");
+	newContact = newContact.replace(/\./g,',');
 	var vaildUser = this.userList.findWhere({id:newContact});
 
 	while(!vaildUser){

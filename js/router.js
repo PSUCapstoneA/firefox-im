@@ -35,7 +35,10 @@
     },
 
     newChat: function(id) {
-      this.getChatList().add(new FirefoxIM.Models.Chat({authUsers:[FirefoxIM.user.id,id]}));
+      var authUsers ={};
+      authUsers[FirefoxIM.user.id] = true;
+      authUsers[id] = true;
+      this.getChatList().add(new FirefoxIM.Models.Chat({authUsers:authUsers}));
       this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
