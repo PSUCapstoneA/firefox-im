@@ -12,7 +12,6 @@
       "click .chat": "loadChatView",
       "click #chatlist-open-menu": "openMenu",
       "click #chatlist-close-menu": "closeMenu",
-
       "click #contact": "loadContactView",
     },
 
