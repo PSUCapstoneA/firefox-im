@@ -29,8 +29,13 @@
       this.renderParentView(FirefoxIM.Views.ChatView, chat);
     },
 
-    newChat: function() {
-      this.getChatList().add(new FirefoxIM.Models.Chat());
+    userList: function(id){
+	var userList = this.getUserList();
+	this.renderParentView(FirefoxIM.Views.ContactView, userList);
+    },
+
+    newChat: function(id) {
+      this.getChatList().add(new FirefoxIM.Models.Chat({authUsers:[FirefoxIM.user.id,id]}));
       this.renderParentView(FirefoxIM.Views.ChatView, _.last(this.getChatList().models));
     },
 
