@@ -52,6 +52,8 @@
     },
 
     splashScreen: function() {
+      FirefoxIM.userList  =  FirefoxIM.router.getUserList();
+      this.listenTo(FirefoxIM.userList,"add", function(){});
       this.renderParentView(FirefoxIM.Views.SplashScreenView, this.firebaseRef)
     },
 
