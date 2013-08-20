@@ -44,7 +44,8 @@
 	var newContact = window.prompt("Input new user you want to add:", "");
 	var vaildUser = this.userList.findWhere({id:newContact});
 
-	while(!vaildUser || newContact == null){
+	while(!vaildUser){
+		if(newContact == null) break;
 		newContact = window.prompt("Invalid user name,please try again:", "");
         	vaildUser = this.userList.findWhere({id:newContact});
 	}
