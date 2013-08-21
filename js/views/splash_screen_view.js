@@ -12,7 +12,8 @@
     },
 
     initialize: function(firebaseRef, options) {
-      this.auth = new FirebaseSimpleLogin(firebaseRef, this.authCallback);
+      FirefoxIM.auth = new FirebaseSimpleLogin(firebaseRef, this.authCallback);
+      FirefoxIM.auth.logout();
       this.install = new FirefoxIM.Views.InstallView();
     },
 
@@ -27,7 +28,7 @@
       } else if (user) {
         FirefoxIM.user = user;
         
-        if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id}) && FirefoxIM.userList.length !== 0){
+        if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id})){
           FirefoxIM.router.navigate("newUser", {trigger: true});
           return;
         }  
@@ -37,7 +38,7 @@
     },
 
     siginIn: function() {
-      this.auth.login('persona');
+      FirefoxIM.auth.login('persona');
     }
   });
 
