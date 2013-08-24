@@ -8,20 +8,37 @@
     el: FirefoxIM.Templates.settings(),
 
     events: {
+      'click #settings-save': 'saveSettings',
+      'click .settings-close': 'closeSettings'
+    },
+
+    defaultSettings: {
+
     },
 
     initialize: function(model, options) {
-      this.settings = model;
+      this.user = model;
+      this.settings = _.defaults(this.user.settings, this.defaultSettings);
     },
 
     render: function() {
-      $(document.body).append(this.$el);
-      this.renderSettings(this.settings);
+      $(document.body).empty().append(this.$el);
+      this.renderSettings(this.settings)
       return this;
     },
 
-    renderSettings: function(user) {
+    renderSettings: function(settings) {
+    },
+
+    saveSettings: function() {
+      //TODO save settings
+      this.closeSettings();
+    },
+
+    closeSettings: function() {
+      FirefoxIM.router.navigate("chatList", {trigger: true});
     }
+
   });
 
   window.FirefoxIM = FirefoxIM;
