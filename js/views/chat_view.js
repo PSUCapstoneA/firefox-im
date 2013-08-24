@@ -9,7 +9,8 @@
 
 		events: {
 			"click #chat-submit-text": "handleMessageInput",
-			"click #chat-back-arrow": "loadChatList"
+			"click #chat-back-arrow": "loadChatList",
+			"keyup #chat-input-textarea": "resizeInput"
 		},
 
 		initialize: function(model, options){
@@ -18,8 +19,8 @@
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
 			});		
-			
-			//gets the latest userList
+
+	    //gets the latest userList
 			FirefoxIM.userList  =  FirefoxIM.router.getUserList();
       		this.listenTo(FirefoxIM.userList,"add", function(){});
 		},
@@ -27,6 +28,8 @@
 		render: function(){
 	      $(document.body).append(this.$el);
 	      this.renderMessageList();
+	      $('#chat-input-textarea')[0].style.height = "42px";
+	      $('#chat-input-textarea').closest('form')[0].style.height = "42px"
 	      return this;
 		},
 
@@ -85,9 +88,23 @@
 		},
 
     remove: function() {
+    	$("#chat-input-textarea").val("");
       this.stopListening(this.chat);
       Backbone.View.prototype.remove.call(this);
+    },
+
+    resizeInput: function(e){
+    	var input = $('#chat-input-textarea')[0];
+    	var bottom = $('#chat-input-textarea').closest('form')[0],
+    			heightAdjustment  = (input.scrollHeight >= input.clientHeight) ?
+        (input.scrollHeight) :
+        (input.clientHeight);
+      if (heightAdjustment > 110)  { heightAdjustment = 110 }
+      input.style.height = heightAdjustment - 10 + "px";
+      bottom.style.height = heightAdjustment + "px";
     }
+
+
 
 	});
 	window.FirefoxIM = FirefoxIM;

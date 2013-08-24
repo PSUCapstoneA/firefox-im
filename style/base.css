@@ -37,10 +37,15 @@ section[role="region"] {
 form[role="search"].bottom {
   z-index:2;
   position:fixed;
+  min-height: 42px;
   bottom:0;
   width: 100%;
   left:0;
   right:0;
+}
+
+#chat-input-textarea {
+  min-height: 42px;
 }
 
 [data-type="list"] {
@@ -69,4 +74,22 @@ section[data-type="sidebar"] > header .icon.icon-close {
   padding-left: 1.5rem;
   font-size: 1.6rem;
   color: red;
+}
+
+input[id="username"],
+input[id="email"],
+input[id="phone"]{
+  -moz-box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: 33%;
+  height: 2rem;
+  resize: none;
+  padding: 0 0.5rem;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.3rem;
+  box-shadow: none; /* override the box-shadow from the system (performance issue) */
+  background: #fff url(input_areas/images/ui/shadow.png) repeat-x;
 }
