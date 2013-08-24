@@ -24,25 +24,6 @@ textarea {
   background: #fff url(input_areas/images/ui/shadow.png) repeat-x;
 }
 
-input[id="username"],
-input[id="email"],
-input[id="phone"]{
-  -moz-box-sizing: border-box;
-  display: block;
-  overflow: hidden;
-  width: 33%;
-  height: 2rem;
-  resize: none;
-  padding: 0 0.5rem;
-  font-size: 1.6rem;
-  line-height: 2rem;
-  border: 0.1rem solid #ccc;
-  border-radius: 0.3rem;
-  box-shadow: none; /* override the box-shadow from the system (performance issue) */
-  background: #fff url(input_areas/images/ui/shadow.png) repeat-x;
-}
-
-
 textarea {
   height: 10rem;
   max-height: 10rem;
@@ -412,4 +393,3 @@ html[dir="rtl"] form[role="search"] p input:focus {
 html[dir="rtl"] form[role="search"] button[type="submit"] + p > button {
   left: 0;
 }
->>>>>>> jefffung-master
