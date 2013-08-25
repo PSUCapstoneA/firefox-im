@@ -44,7 +44,8 @@
     },
 
     user: function(id) {
-      this.renderParentView(FirefoxIM.Views.UserView, this.getUser(id));
+      var user = FirefoxIM.userList.findWhere({"id": id})
+      this.renderParentView(FirefoxIM.Views.UserView, user);
     },
 
     settings: function(id) {
@@ -88,11 +89,12 @@
       return FirefoxIM.userList;
     },
 
+        
     renderParentView: function(view, data, options) {
       if (this.currentView) {
         this.currentView.remove();
       }
-      
+            
       if (!FirefoxIM.user) {
         this.navigate("/", {trigger: true});
       }

@@ -8,16 +8,12 @@
   FirefoxIM.Models.Chat =  Backbone.Model.extend({
     addMessage: function(message) {
       var messages = _.clone(this.get("messages")) || [];
-      
-      message.text = this.encodeHTML(message.text);
-      message.timestamp = Date.now();
       messages.push(message);
-
       this.set("messages", messages);
     },
     encodeHTML: function(s) {
-      return s.replace(/&[^(amp;)(lt;)(quot;)(gt;)(nbsp;)]/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/ /g, '&nbsp;');
-    }
+      return s.replace(/&[^(amp;)(lt;)(quot;)(gt;)(nbsp;)]/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/ /g, '&nbsp;').replace(/\n/g,'<br>');
+    }  
   }); 
 
   window.FirefoxIM = FirefoxIM;
