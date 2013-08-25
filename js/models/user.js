@@ -5,7 +5,7 @@
   FirefoxIM.Models = FirefoxIM.Models || {};
 
   FirefoxIM.Models.User =  Backbone.Model.extend({
-  addContact: function(contact) {
+  /*addContact: function(contact) {
       var contacts = _.clone(this.get("contacts")) || [];
       contact.text = this.encodeHTML(contact.text);
       contacts.push(contact)
@@ -18,7 +18,7 @@
 
     removesSplashScreen: function(){
       $("body").find("#splashscreen").remove();  
-    }
+    }*/
   
   });
   window.FirefoxIM = FirefoxIM;

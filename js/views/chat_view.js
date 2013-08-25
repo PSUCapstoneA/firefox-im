@@ -13,7 +13,7 @@
 		},
 
 		initialize: function(model, options){
-			
+			$('#header-userId h1').append("1234");
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
@@ -25,16 +25,19 @@
 		},
 
 		render: function(){
-	      $(document.body).append(this.$el);
-	      this.renderMessageList();
-	      return this;
+	      		$(document.body).append(this.$el);
+	      		this.renderMessageList();
+	      		return this;
 		},
 
 		renderMessageList: function() {
 			var view = this;
 			var shouldCallTrigger = false;
 			messages = this.chat.get("messages");
+			var keys = Object.keys(this.attributes.authUsers);
 			$('#chat-thread-list ul').empty();
+			$('#header-userId h1').empty();
+			$('#header-userId h1').append(keys[0]);
 			
 			for(var i = 0; i< messages.length; i++){ 
 				shouldCallTrigger = view.changeReadStatus(messages[i],shouldCallTrigger);
