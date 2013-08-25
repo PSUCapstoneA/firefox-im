@@ -63,7 +63,7 @@
   FirefoxIM.Templates.chatListView = function(chats) {
     return $('<section role="region" id="list-view">'
       + '<header>'
-      + '<button><span class="icon icon-menu">menu</span></button>'
+      + '<button id="chatlist-open-menu"><span class="icon icon-menu">menu</span></button>'
       + '<menu type="toolbar">'
       + '   <button id="contact"><span class="icon icon-user">user</span></button>'
       + '         </menu>'
@@ -86,13 +86,37 @@
       '</li>');
   };
 
-
-  //-----------------------------------------------------------------Settings
-  FirefoxIM.Templates.settings = function() { return $('<div/>'); }
-  
   //-----------------------------------------------------------------User
   FirefoxIM.Templates.user = function() { return $('<div/>'); }
 
+  //-----------------------------------------------------------------Settings
+  FirefoxIM.Templates.settings = function() { return $(
+    '<form role="dialog" data-type="edit">'
+  +'<section>'
+  +'<header>'
+  +'<button class="settings-close"><span class="icon icon-close">close</span></button>'
+  +'<menu type="toolbar">'
+  +'</menu>'
+  +'<h1>Firefox IM Settings</h1>'
+  +'</header>'
+  +'</section>'
+  +'<p>'
+  +'<input type="text" placeholder="Placeholder" required="">'
+  +'<button type="reset">Clear</button>'
+  +'</p>'
+  +'<p>'
+  +'<textarea placeholder="Placeholder in textarea" required=""></textarea>'
+  +'</p>'
+  +'<p>'
+  +'<input type="text" placeholder="Placeholder" value="Some written text" required="">'
+  +'<button type="reset">Clear</button>'
+  +'</p>'
+  +'<menu>'
+  +'<button id="settings-save">Save Settings</button>'
+  +'<button class="settings-close">Cancel</button>'
+  + '</menu>'
+  +'</form>'); }
+  
   //----------------------------------------------------------------Drawer
 
   FirefoxIM.Templates.drawer = function(userid) {
@@ -106,8 +130,8 @@
     +'<nav>'
     +'<ul>'
     +'<li><a href="#" data-target="user/' + userid + '">User</a></li>'
-    +'<li><a href="#" data-target="user/' + userid + '/contacts">Contacts</a></li>'
     +'<li><a href="#" data-target="settings">Settings</a></li>'
+    +'<li><a href="#" data-target="logout">Log Out</a></li>'
     +'</nav>'
     +'</section>');
   };
