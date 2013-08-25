@@ -14,6 +14,7 @@
     initialize: function(firebaseRef, options) {
       this.options = options;
       this.auth = new FirebaseSimpleLogin(firebaseRef, _.bind(this.authCallback, this));
+      this.auth.logout();
       this.install = new FirefoxIM.Views.InstallView();
     },
 
@@ -32,7 +33,7 @@
         } else {
           FirefoxIM.user = user;
           
-          if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id}) && FirefoxIM.userList.length !== 0){
+          if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id})){
             FirefoxIM.router.navigate("newUser", {trigger: true});
             return;
           }  
