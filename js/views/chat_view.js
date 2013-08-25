@@ -35,15 +35,15 @@
 		renderMessageList: function() {
 			var view = this;
 			var shouldCallTrigger = false;
-			messages = this.chat.get("messages");
+			this.messages = this.chat.get("messages");
 			var keys = Object.keys(this.attributes.authUsers);
 			$('#chat-thread-list ul').empty();
 			$('#header-userId h1').empty();
 			$('#header-userId h1').append(keys[0]);
 			
-			for(var i = 0; i< messages.length; i++){ 
-				shouldCallTrigger = view.changeReadStatus(messages[i],shouldCallTrigger);
-				view.renderMessage(messages[i],i); 
+			for(var i = 0; i< this.messages.length; i++){ 
+				shouldCallTrigger = view.changeReadStatus(this.messages[i],shouldCallTrigger);
+				view.renderMessage(this.messages[i],i); 
 			};
 			
 			if(shouldCallTrigger){
@@ -72,8 +72,8 @@
 			var text = $("#chat-input-textarea");
 			
 			this.chat.addMessage({
-				userId: FirefoxIM.user.id,
-				text: text.val(),
+				userId: this.chat.encodeHTML(FirefoxIM.user.id),
+				text: this.chat.encodeHTML(text.val()),
 				time: Date.now(),
 				read: false
 			});
@@ -82,7 +82,7 @@
 		},
 
 		loadChatList: function() {
-			if(!messages){
+			if(!this.messages){
 				var id = this.chat.get("id");
 				var removeRef = new Firebase('https://psucapstone-a.firebaseio.com/chats/' + id ); 
 				removeRef.remove();}

@@ -40,6 +40,7 @@
       
       var newUser = new FirefoxIM.Models.User({"id": FirefoxIM.user.id, "username": username, "email": email, "phone": phone});
       FirefoxIM.userList.add(newUser);
+      $('.newUserInputError').remove();
       FirefoxIM.router.navigate('chatList', {trigger: true});
     }
 

@@ -12,6 +12,7 @@
       + '</div>');
   }
 
+  //-----------------------------------------------------------New User Info Screen
   FirefoxIM.Templates.newUserInputs = function() {
     return $('<div id="newUserInputs">'
       + "<p> You are brand new user. Input user info.</p>"
@@ -87,7 +88,14 @@
   };
 
   //-----------------------------------------------------------------User
-  FirefoxIM.Templates.user = function() { return $('<div/>'); }
+  FirefoxIM.Templates.user = function() {  
+    return $('<div id="userInfo">'
+      + '<label>username</label><input type="text" id="username"><br>'
+      + '<label>e-mail</label><input type="text" id="email"><br>'
+      + '<label>phone</label><input type="text" id="phone"><br>'
+      + '<button id="submit">Submit</button>'
+      + '</div>');
+  }
 
   //-----------------------------------------------------------------Settings
   FirefoxIM.Templates.settings = function() { return $(
