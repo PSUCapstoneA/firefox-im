@@ -14,7 +14,6 @@
 		},
 
 		initialize: function(model, options){
-			
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
@@ -37,7 +36,10 @@
 			var view = this;
 			var shouldCallTrigger = false;
 			this.messages = this.chat.get("messages");
+			var keys = Object.keys(this.attributes.authUsers);
 			$('#chat-thread-list ul').empty();
+			$('#header-userId h1').empty();
+			$('#header-userId h1').append(keys[0]);
 			
 			for(var i = 0; i< this.messages.length; i++){ 
 				shouldCallTrigger = view.changeReadStatus(this.messages[i],shouldCallTrigger);
