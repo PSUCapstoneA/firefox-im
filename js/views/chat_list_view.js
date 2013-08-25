@@ -36,6 +36,14 @@
     addChat: function(chat) {
       var id = chat.get("id"),
         message = _.last(chat.get("messages"))
+      
+      var authUsers = chat.get("authUsers");
+      //console.log(authUsers["cherb@pdx,edu"]);
+      var isAuthorized = authUsers[FirefoxIM.user.id];
+
+      if(!isAuthorized)
+        return;
+
       if (!id || !message) { return; /* Bad or Empty message */ }
 
       $('#chats ul').append(FirefoxIM.Templates.chatListChat({
