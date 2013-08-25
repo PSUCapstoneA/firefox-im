@@ -57,7 +57,7 @@
         	this.listenTo(this.user,"change", function(model){
           	this.renderContactsList();
         	});
-        
+        	
         	var contactsForUser = this.user.get("contacts");
 		if(!contactsForUser){
 			this.user.set({contacts:[newContact.toLowerCase()]});

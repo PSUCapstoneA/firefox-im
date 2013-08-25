@@ -81,7 +81,7 @@
   FirefoxIM.Templates.chatListChat = function(chat) {
     return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
       '<a href="#">'+
-      '<p>'+ chat.message.userId + '<span class="chatlist-timestamp"><span></p>'+
+      '<p>'+ chat.userId + '<span class="chatlist-timestamp"><span></p>'+
       '<p>'+chat.message.text +'</p>'+
       '</a>'+
       '</li>');
@@ -147,12 +147,12 @@
   //------------------------------------------------------------------Chat
   FirefoxIM.Templates.chatView = function(chat) {
     return $('<section role="region" id="list-view">'
-      + '<header>'
+      + '<header id="header-userId">'
       + '<button id="chat-back-arrow"><span class="icon icon-back">back</span></button>'
       + '<menu type="toolbar">'
-      + '  <a href="#" id="chat-add-user"><span class="icon icon-add">add</span></a>'
       + '         </menu>'
-      + '         <h1>You and ?</h1>'
+      + '         <h1>' 
+      + '	 </h1>'
       + '     </header>'   
       + '   <div id="chat-thread-box"></div>'   
       + '     <article id="chat-thread-list" data-type="list">'
