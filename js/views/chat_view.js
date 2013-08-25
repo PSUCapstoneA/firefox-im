@@ -14,7 +14,6 @@
 		},
 
 		initialize: function(model, options){
-			$('#header-userId h1').append("1234");
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
