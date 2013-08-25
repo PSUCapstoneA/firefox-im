@@ -14,12 +14,7 @@
     
     encodeHTML: function(s) {
       return s.replace(/&[^(amp;)(lt;)(quot;)(gt;)(nbsp;)]/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/ /, '&nbsp;');
-    },
-
-    removesSplashScreen: function(){
-      $("body").find("#splashscreen").remove();  
     }
-  
   });
   window.FirefoxIM = FirefoxIM;
 }())
