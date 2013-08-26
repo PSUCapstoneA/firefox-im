@@ -8,11 +8,13 @@
     el: FirefoxIM.Templates.user(),
 
     events: {
-      "click #submit": "editUser" 
+      "click #submit": "editUser",
+      "click #user-back-arrow": "loadChatListView"
     },
 
     initialize: function(model, options) {
       this.user = model;
+      this.listenTo(this.user,"change",function(){});
     },
 
     render: function() {
@@ -28,17 +30,6 @@
     },
     
     editUser: function(){
-      FirefoxIM.userList.remove({id: FirefoxIM.user.id});
-      this.addsNewUser();
-    },
-
-    displayErrorMessage: function(usernameExistsError, emailError){
-      if(usernameExistsError){
-        $("#userInfo").before('<p class="newUserInputError">Username already exists. Please pick another username.</p>');
-      }
-    },
-
-    addsNewUser: function(){
       var username = $("#username").val();
       var email = $("#email").val();
       var phone = $("#phone").val();
@@ -47,13 +38,23 @@
         var usernameExistsError = true;
         this.displayErrorMessage(usernameExistsError);
         return;
-      }  
-      
-      var newUser = new FirefoxIM.Models.User({"id": FirefoxIM.user.id, "username": username, "email": email, "phone": phone});
-      FirefoxIM.userList.add(newUser);
+      } 
+
+      this.user.set({"username": username, "email": email, "phone": phone}) 
       $('.newUserInputError').remove();
       FirefoxIM.router.navigate('chatList', {trigger: true});
+    },
+
+    displayErrorMessage: function(usernameExistsError, emailError){
+      if(usernameExistsError){
+        $("#userInfo").before('<p class="newUserInputError">Username already exists. Please pick another username.</p>');
+      }
+    },
+
+    loadChatListView: function(){
+      FirefoxIM.router.navigate("chatList", {trigger: true});
     }
+  
   });
 
   window.FirefoxIM = FirefoxIM;
