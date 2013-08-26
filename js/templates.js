@@ -79,6 +79,7 @@
   };
 
   FirefoxIM.Templates.chatListChat = function(chat) {
+    
     return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
       '<a href="#">'+
       '<p>'+ chat.userId + '<span class="chatlist-timestamp"><span></p>'+
@@ -89,12 +90,18 @@
 
   //-----------------------------------------------------------------User
   FirefoxIM.Templates.user = function() {  
-    return $('<div id="userInfo">'
+    return $('<section role="region" id="list-view">'
+      + '<header id="header-userId">'
+      + '<button id="user-back-arrow"><span class="icon icon-back">back</span></button>'
+      + '<h1>User Account Info </h1>'
+      + '</header>'
+      + '<div id="userInfo">'
       + '<label>username</label><input type="text" id="username"><br>'
       + '<label>e-mail</label><input type="text" id="email"><br>'
       + '<label>phone</label><input type="text" id="phone"><br>'
       + '<button id="submit">Submit</button>'
-      + '</div>');
+      + '</div>'
+      + '</section>');
   }
 
   //-----------------------------------------------------------------Settings
@@ -149,23 +156,21 @@
     return $('<section role="region" id="list-view">'
       + '<header>'
       + '<button id="chat-back-arrow"><span class="icon icon-back">back</span></button>'
-      + '<menu type="toolbar">'
-      + '         </menu>'
-      + '         <h1>' 
-      + '	 </h1>'
-      + '     </header>'   
+      + '<menu type="toolbar"></menu>'
+      + '<h1></h1>'
+      + '</header>'   
       + '   <div id="chat-thread-box"></div>'   
-      + '     <article id="chat-thread-list" data-type="list">'
+      + '   <article id="chat-thread-list" data-type="list">'
       + '       <ul>'
       + '       </ul>'
-      + '     </article>'
-      +  '<form role="search" class="bottom">'
+      + '   </article>'
+      + '<form role="search" class="bottom">'
       + '<button type="submit" id="chat-submit-text">Send</button>'
       + '<p>'
       + '<textarea placeholder="Message" required="" id="chat-input-textarea"></textarea>'
       + '</p>'
       + '</form>'
-      + '  </section>');
+      + '</section>');
   };
 
   var getClockTime = function(epochTime){
