@@ -79,6 +79,7 @@
   };
 
   FirefoxIM.Templates.chatListChat = function(chat) {
+    
     return $('<li class="chat" data-chat-id="'+ chat.id +'">'+
       '<a href="#">'+
       '<p>'+ chat.userId + '<span class="chatlist-timestamp"><span></p>'+

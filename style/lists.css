@@ -32,7 +32,7 @@
 
 /* List items */
 [data-type="list"] li {
-  width: 100%;
+  width: 80%;
   -moz-box-sizing: border-box;
   transition: transform 0.3s ease, padding 0.3s ease;
   border-bottom: solid 0.1rem #dbd9d9;
@@ -43,6 +43,7 @@
   z-index: 1;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  overflow: hidden;
 }
 
 [data-type="list"] li:last-child {
@@ -137,8 +138,9 @@
 
 /* Text content */
 [data-type="list"] li p {
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
+  word-wrap: break-word;
   text-overflow: ellipsis;
   border: none;
   display: block;
@@ -182,6 +184,7 @@
   width: auto;
   height: auto;
   border-top: solid 0.1rem #dbd9d9;
+
 }
 
 [data-type="list"] li > label input + span {
