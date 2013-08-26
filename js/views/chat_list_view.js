@@ -45,9 +45,10 @@
         return;
 
       if (!id || !message) { return; /* Bad or Empty message */ }
-
+      var keys = Object.keys(chat.attributes.authUsers);
       $('#chats ul').append(FirefoxIM.Templates.chatListChat({
         id: id,
+	userId:keys[0],
         message: message
       }));
     },

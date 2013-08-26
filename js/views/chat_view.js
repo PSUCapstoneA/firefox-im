@@ -9,17 +9,17 @@
 
 		events: {
 			"click #chat-submit-text": "handleMessageInput",
-			"click #chat-back-arrow": "loadChatList"
+			"click #chat-back-arrow": "loadChatList",
+			"keyup #chat-input-textarea": "resizeInput"
 		},
 
 		initialize: function(model, options){
-			
 			this.chat = model;
 			this.listenTo(this.chat, "change", function(model) {
 				this.renderMessageList();
 			});		
-			
-			//gets the latest userList
+
+	    //gets the latest userList
 			FirefoxIM.userList  =  FirefoxIM.router.getUserList();
       		this.listenTo(FirefoxIM.userList,"add", function(){});
 		},
@@ -27,18 +27,23 @@
 		render: function(){
 	      $(document.body).append(this.$el);
 	      this.renderMessageList();
+	      $('#chat-input-textarea')[0].style.height = "42px";
+	      $('#chat-input-textarea').closest('form')[0].style.height = "42px"
 	      return this;
 		},
 
 		renderMessageList: function() {
 			var view = this;
 			var shouldCallTrigger = false;
-			messages = this.chat.get("messages");
+			this.messages = this.chat.get("messages");
+			var keys = Object.keys(this.attributes.authUsers);
 			$('#chat-thread-list ul').empty();
+			$('#header-userId h1').empty();
+			$('#header-userId h1').append(keys[0]);
 			
-			for(var i = 0; i< messages.length; i++){ 
-				shouldCallTrigger = view.changeReadStatus(messages[i],shouldCallTrigger);
-				view.renderMessage(messages[i],i); 
+			for(var i = 0; i< this.messages.length; i++){ 
+				shouldCallTrigger = view.changeReadStatus(this.messages[i],shouldCallTrigger);
+				view.renderMessage(this.messages[i],i); 
 			};
 			
 			if(shouldCallTrigger){
@@ -67,8 +72,8 @@
 			var text = $("#chat-input-textarea");
 			
 			this.chat.addMessage({
-				userId: FirefoxIM.user.id,
-				text: text.val(),
+				userId: this.chat.encodeHTML(FirefoxIM.user.id),
+				text: this.chat.encodeHTML(text.val()),
 				time: Date.now(),
 				read: false
 			});
@@ -77,7 +82,7 @@
 		},
 
 		loadChatList: function() {
-			if(!messages){
+			if(!this.messages){
 				var id = this.chat.get("id");
 				var removeRef = new Firebase('https://psucapstone-a.firebaseio.com/chats/' + id ); 
 				removeRef.remove();}
@@ -85,9 +90,23 @@
 		},
 
     remove: function() {
+    	$("#chat-input-textarea").val("");
       this.stopListening(this.chat);
       Backbone.View.prototype.remove.call(this);
+    },
+
+    resizeInput: function(e){
+    	var input = $('#chat-input-textarea')[0];
+    	var bottom = $('#chat-input-textarea').closest('form')[0],
+    			heightAdjustment  = (input.scrollHeight >= input.clientHeight) ?
+        (input.scrollHeight) :
+        (input.clientHeight);
+      if (heightAdjustment > 110)  { heightAdjustment = 110 }
+      input.style.height = heightAdjustment - 10 + "px";
+      bottom.style.height = heightAdjustment + "px";
     }
+
+
 
 	});
 	window.FirefoxIM = FirefoxIM;

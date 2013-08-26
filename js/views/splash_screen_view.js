@@ -12,8 +12,9 @@
     },
 
     initialize: function(firebaseRef, options) {
-      FirefoxIM.auth = new FirebaseSimpleLogin(firebaseRef, this.authCallback);
-      FirefoxIM.auth.logout();
+      this.options = options;
+      this.auth = new FirebaseSimpleLogin(firebaseRef, _.bind(this.authCallback, this));
+      this.auth.logout();
       this.install = new FirefoxIM.Views.InstallView();
     },
 
@@ -26,19 +27,24 @@
       if (error) {
         FirefoxIM.router.navigate('error', {trigger: true});
       } else if (user) {
-        FirefoxIM.user = user;
-        
-        if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id})){
-          FirefoxIM.router.navigate("newUser", {trigger: true});
-          return;
-        }  
-        
-        FirefoxIM.router.navigate("chatList", {trigger: true});
+        if (this.options.logout) {
+          this.auth.logout();
+          this.options.logout = false;
+        } else {
+          FirefoxIM.user = user;
+          
+          if(!FirefoxIM.userList.findWhere({id: FirefoxIM.user.id})){
+            FirefoxIM.router.navigate("newUser", {trigger: true});
+            return;
+          }  
+          
+          FirefoxIM.router.navigate("chatList", {trigger: true});
+        }
       }
     },
 
     siginIn: function() {
-      FirefoxIM.auth.login('persona');
+      this.auth.login('persona');
     }
   });
 

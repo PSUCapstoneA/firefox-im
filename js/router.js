@@ -16,6 +16,7 @@
       "user/:id": "user",
       "settings": "settings",
       "chatList": "chatList",
+      "logout"  : "logout",
       "newUser" : 'newUserInput',
       "*default": "splashScreen"
     },
@@ -30,8 +31,8 @@
     },
 
     userList: function(id){
-	var userList = this.getUserList();
-	this.renderParentView(FirefoxIM.Views.ContactView, userList);
+    	var userList = this.getUserList();
+    	this.renderParentView(FirefoxIM.Views.ContactView, userList);
     },
 
     newChat: function(id) {
@@ -43,11 +44,12 @@
     },
 
     user: function(id) {
-      this.renderParentView(FirefoxIM.UserView, {});
+      var user = FirefoxIM.userList.findWhere({"id": id})
+      this.renderParentView(FirefoxIM.Views.UserView, user);
     },
 
-    settings: function() {
-      this.renderParentView(FirefoxIM.SettingsView, {});
+    settings: function(id) {
+      this.renderParentView(FirefoxIM.Views.SettingsView, this.getUser(id));
     },
 
     newUserInput: function(){
@@ -57,10 +59,22 @@
     splashScreen: function() {
       FirefoxIM.userList  =  FirefoxIM.router.getUserList();
       this.listenTo(FirefoxIM.userList,"add", function(){});
-      this.renderParentView(FirefoxIM.Views.SplashScreenView, this.firebaseRef)
+      this.renderParentView(FirefoxIM.Views.SplashScreenView, this.firebaseRef, {
+        logout: false
+      });
+    },
+
+    logout: function () {
+      this.renderParentView(FirefoxIM.Views.SplashScreenView, this.firebaseRef, {
+        logout: true
+      });
     },
 
     // ----------------------------------------------------Helpers
+    getUser: function(userId) {
+      return this.firebaseRef.child('users/' + userId);
+    },
+
     getChatList: function() {
       FirefoxIM.chatList = FirefoxIM.chatList || new FirefoxIM.Collections.ChatList(undefined, {
         firebase: this.firebaseRef.child('chats')
@@ -75,11 +89,12 @@
       return FirefoxIM.userList;
     },
 
+        
     renderParentView: function(view, data, options) {
       if (this.currentView) {
         this.currentView.remove();
       }
-      
+            
       if (!FirefoxIM.user) {
         this.navigate("/", {trigger: true});
       }
