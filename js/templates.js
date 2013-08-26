@@ -147,7 +147,7 @@
   //------------------------------------------------------------------Chat
   FirefoxIM.Templates.chatView = function(chat) {
     return $('<section role="region" id="list-view">'
-      + '<header id="header-userId">'
+      + '<header>'
       + '<button id="chat-back-arrow"><span class="icon icon-back">back</span></button>'
       + '<menu type="toolbar">'
       + '         </menu>'
