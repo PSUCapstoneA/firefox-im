@@ -30,7 +30,7 @@
     },
     
     editUser: function(){
-      var username = $("#username").val();
+      var username = this.user.encodeHTML($("#username").val());
       var email = $("#email").val();
       var phone = $("#phone").val();
 
