@@ -24,6 +24,7 @@
     },
 
     renderUserInfo: function(user) {
+      $('.newUserInputError').remove();
       $('#username').val(user.get("username"));
       $('#email').val(user.get("email"));
       $('#phone').val(user.get("phone"));
@@ -34,7 +35,8 @@
       var email = $("#email").val();
       var phone = $("#phone").val();
 
-      if(FirefoxIM.userList.findWhere({"username": username})){
+      var userWithTheSameUsername = FirefoxIM.userList.findWhere({"username": username});
+      if(userWithTheSameUsername && userWithTheSameUsername.get("id") !== FirefoxIM.user.id){
         var usernameExistsError = true;
         this.displayErrorMessage(usernameExistsError);
         return;
@@ -47,7 +49,7 @@
 
     displayErrorMessage: function(usernameExistsError, emailError){
       if(usernameExistsError){
-        $("#userInfo").before('<p class="newUserInputError">Username already exists. Please pick another username.</p>');
+        $("#userInfo").after('<p class="newUserInputError">Username already exists. Please pick another username.</p>');
       }
     },
 
