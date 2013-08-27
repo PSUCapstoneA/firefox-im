@@ -38,17 +38,17 @@
         message = _.last(chat.get("messages"))
       
       var authUsers = chat.get("authUsers");
-      //console.log(authUsers["cherb@pdx,edu"]);
       var isAuthorized = authUsers[FirefoxIM.user.id];
 
       if(!isAuthorized)
         return;
 
       if (!id || !message) { return; /* Bad or Empty message */ }
-      var keys = Object.keys(chat.attributes.authUsers);
+     
+      var otherUserName = chat.getOtherUserName(); 
       $('#chats ul').append(FirefoxIM.Templates.chatListChat({
         id: id,
-	userId:keys[0],
+	userId: otherUserName,
         message: message
       }));
     },

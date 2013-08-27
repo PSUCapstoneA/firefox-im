@@ -42,7 +42,9 @@
         e.preventDefault();
         
 	var newContact = window.prompt("Input new user you want to add:", "");
-	newContact = newContact.replace(/\./g,',');
+	if(newContact){
+	newContact = newContact.replace(/\./g,',');}
+
 	var vaildUser = this.userList.findWhere({id:newContact});
 
 	while(!vaildUser){
@@ -80,7 +82,8 @@
         if (!id || !contacts) { return;}
 
   	     for(var i =0; i < contacts.length; i++){
-          $('#users ul').append(FirefoxIM.Templates.userList(contacts[i]));
+		var userName = FirefoxIM.userList.findWhere({id:contacts[i]}).get("username");		
+          $('#users ul').append(FirefoxIM.Templates.userList(contacts[i],userName));
         } 
       }
     },
