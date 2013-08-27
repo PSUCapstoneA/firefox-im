@@ -37,7 +37,9 @@
 			var shouldCallTrigger = false;
 			this.messages = this.chat.get("messages");
 			$('#chat-thread-list ul').empty();
-			this.displayUserId();
+			var otherUserName = this.chat.getOtherUserName();
+			$('h1').empty();
+                        $('h1').html(otherUserName);
 			
 			for(var i = 0; i< this.messages.length; i++){ 
 				shouldCallTrigger = view.changeReadStatus(this.messages[i],shouldCallTrigger);
@@ -49,18 +51,6 @@
 			}
 		},
 		
-		displayUserId: function() {
-			var keys = Object.keys(this.attributes.authUsers);
-			var disPlayId = null;
-			for (var i=0; i<keys.length;i++){
-                                if(keys[i] != FirefoxIM.user.id){
-                                        disPlayId = keys[i];
-                                }
-                        }
-			$('h1').empty();
-                        $('h1').html(disPlayId);
-		},
-
 		renderMessage: function(message,messageArrayIndex) {
 			$('#chat-thread-list ul').append(FirefoxIM.Templates.chat(message,messageArrayIndex));
 		},

@@ -48,9 +48,9 @@
         '</section>');
   };
 
-   FirefoxIM.Templates.userList = function(contact) {
+   FirefoxIM.Templates.userList = function(contact,id) {
       return $('<li class="user" data-user-id="' + contact + '">' +
-        '<p>'+ contact + '</p>' +
+        '<p>'+ contact + ' - ' + id + '</p>' +
         '</li>');
    }
 
