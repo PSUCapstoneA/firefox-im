@@ -48,9 +48,9 @@
         '</section>');
   };
 
-   FirefoxIM.Templates.userList = function(contact) {
+   FirefoxIM.Templates.userList = function(contact,id) {
       return $('<li class="user" data-user-id="' + contact + '">' +
-        '<p>'+ contact + '</p>' +
+        '<p>'+ contact + ' - ' + id + '</p>' +
         '</li>');
    }
 
@@ -154,7 +154,7 @@
   //------------------------------------------------------------------Chat
   FirefoxIM.Templates.chatView = function(chat) {
     return $('<section role="region" id="list-view">'
-      + '<header id="header-userId">'
+      + '<header>'
       + '<button id="chat-back-arrow"><span class="icon icon-back">back</span></button>'
       + '<menu type="toolbar"></menu>'
       + '<h1></h1>'
