@@ -18,6 +18,9 @@
 
     render: function() {
       $(document.body).append(this.$el);
+      $('#username').val("");
+      $('#email').val("");
+      $('#phone').val("");
       return this;
     },
 
