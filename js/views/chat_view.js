@@ -78,7 +78,7 @@
 				read: false
 			});
 			text.val("");
-			
+			text.closest('form')[0].style.height = "42px"
 		},
 
 		loadChatList: function() {
