@@ -1,0 +1,43 @@
+<body role="application">
+<section role="region" id="list-view">
+<header>
+<h1>Firefox IM</h1>
+</header>
+	<h1> Messages </h1>
+	<input id = "user" type = "text" placeholder = "Type name:">
+	<input id = "chatText" type = "text" placeholder = "Type Message:">
+	<input type = "button" onclick = "FirefoxIM.setChat()" value = "Submit">
+	</br>
+<article id="threads" data-type="list">
+<ul>
+<li>
+<a href="#">
+<p>User 1</p>
+<p id="jquery">What's Up Dude?</p>
+</a>
+</li>
+<li>
+<a href="#">
+<p>User 2</p>
+<p>Not much</p>
+</a>
+</li>
+</ul>
+</article>
+</section>
+<!-- App Javascript -->
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+<script src="http://cdn.firebase.com/v0/firebase.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+<script src="js/backbone-firebase.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/chatList.js"></script>
+<script src="js/chatView.js"></script>
+<script type='text/javascript' src='js/app.js'></script>
+<script>
+var chatview = new FirefoxIM.ChatView({firebase: new Firebase("http://psucapstone-a.firebaseio.com/chats")});
+</script>
+</body>
